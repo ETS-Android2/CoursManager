@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">Cours Manager</string>
     <string name="action_settings">Settings</string>
+    <string name="btnAdd">Add</string>
+    <string name="ueAddError">Error while creating the UE</string>
+    <string name="ueAddGood">UE created</string>
+    <string name="titleAddUE">Add a new UE</string>
+    <string name="cancel">Cancel</string>
+    <string name="defaultNameUE">UE name</string>
+
 </resources>

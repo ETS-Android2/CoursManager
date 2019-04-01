@@ -5,21 +5,22 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.example.coursmanager.R;
 import com.example.coursmanager.model.UE;
 import com.example.coursmanager.tools.MySQLite;
 
 public class UEManager {
 
     private static final String TABLE_NAME = "ue";
-    public static final String KEY_ID_UE = "id_ue";
+    public static final String KEY_ID_UE = "_id";
     public static final String KEY_NAME_UE = "name_ue";
     public static final String KEY_PERCENTAGE_UE = "percentage_ue";
     public static final String CREATE_TABLE_UE = "CREATE TABLE "+TABLE_NAME+
-            " ("+
-            " "+KEY_ID_UE+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
-            " "+KEY_NAME_UE+" TEXT"+
-            " "+KEY_PERCENTAGE_UE+" FLOAT"+
+            "("+KEY_ID_UE+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
+            " "+KEY_NAME_UE+" TEXT,"+
+            " "+KEY_PERCENTAGE_UE+" REAL"+
             ");";
+    //CREATE TABLE t1(a INT, b TEXT, c REAL);
     private MySQLite mySQLiteBase;
     private SQLiteDatabase db;
 

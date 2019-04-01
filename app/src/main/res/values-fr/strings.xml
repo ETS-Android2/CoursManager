@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cours Manager</string>
+    <string name="action_settings">Paramètres</string>
+    <string name="btnAdd">Ajouter</string>
+    <string name="ueAddError">Erreur lors de l\'ajout de l\'UE</string>
+    <string name="ueAddGood">UE créé</string>
+    <string name="titleAddUE">Ajouter une nouvelle UE</string>
+    <string name="cancel">Annuler</string>
+    <string name="defaultTextUE">Nom de l\'UE</string>
+</resources>

@@ -3,13 +3,14 @@ package com.example.coursmanager.tools;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.coursmanager.controller.UEManager;
 
 public class MySQLite extends SQLiteOpenHelper{
 
-    private static final String DATABASE_NAME = "db.sqlite";
-    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "myData.db";
+    private static final int DATABASE_VERSION = 2;
     private static MySQLite sInstance;
 
     public static synchronized MySQLite getInstance(Context context){
@@ -25,6 +26,7 @@ public class MySQLite extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase sqLiteDatabase){
         // Create Data Base
         sqLiteDatabase.execSQL(UEManager.CREATE_TABLE_UE);
+        Log.d("test:",UEManager.CREATE_TABLE_UE);
     }
 
     @Override
