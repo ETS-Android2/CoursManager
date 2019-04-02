@@ -7,5 +7,18 @@
     <string name="ueAddGood">UE créé</string>
     <string name="titleAddUE">Ajouter une nouvelle UE</string>
     <string name="cancel">Annuler</string>
-    <string name="defaultTextUE">Nom de l\'UE</string>
+    <string name="defaultNameUE">Nom de l\'UE</string>
+    <string name="askDelete">Voulez-vous vraiment le supprimer ?</string>
+    <string name="yes">OUI</string>
+    <string name="no">NON</string>
+    <string name="titleAddSubject">Ajouter une nouvelle matière</string>
+    <string name="defaultNameSubject">Nom de la matière</string>
+    <string name="subjectAddError">Erreur lors de l\'ajout de la matière</string>
+    <string name="subjectAddGood">Matière créée</string>
+    <string name="lessonAddError">Erreur lors de l\'ajout du cours</string>
+    <string name="titleAddLesson">Ajouter un nouveau cours</string>
+    <string name="defaultNameLesson">Nom du cours</string>
+    <string name="defaultNameTeach">Nom du professeur</string>
+    <string name="lessonAddGood">Cours créé</string>
+    <string name="finish">Fini</string>
 </resources>

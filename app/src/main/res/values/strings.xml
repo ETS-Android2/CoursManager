@@ -3,9 +3,25 @@
     <string name="action_settings">Settings</string>
     <string name="btnAdd">Add</string>
     <string name="ueAddError">Error while creating the UE</string>
+    <string name="subjectAddError">Error while creating the subject</string>
+    <string name="lessonAddError">Error while creating the lesson</string>
     <string name="ueAddGood">UE created</string>
+    <string name="subjectAddGood">Subject created</string>
+    <string name="lessonAddGood">Lesson created</string>
     <string name="titleAddUE">Add a new UE</string>
+    <string name="titleAddSubject">Add a new Subject</string>
+    <string name="titleAddLesson">Add a new Lesson</string>
     <string name="cancel">Cancel</string>
     <string name="defaultNameUE">UE name</string>
+    <string name="defaultNameSubject">Subject name</string>
+    <string name="defaultNameLesson">Lesson name</string>
+    <string name="defaultNameTeach">Teacher name</string>
+    <string name="askDelete">Do you really want to remove it ?</string>
+    <string name="yes">YES</string>
+    <string name="no">NO</string>
+    <string name="finish">Finish</string>
 
+    <string name="title_activity_subject" translatable="false"></string>
+    <string name="title_activity_lesson" translatable="false"></string>
+    <string name="title_activity_lesson_details" translatable="false">LessonDetailsActivity</string>
 </resources>

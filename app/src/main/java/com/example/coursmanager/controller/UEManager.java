@@ -11,7 +11,7 @@ import com.example.coursmanager.tools.MySQLite;
 
 public class UEManager {
 
-    private static final String TABLE_NAME = "ue";
+    protected static final String TABLE_NAME = "ue";
     public static final String KEY_ID_UE = "_id";
     public static final String KEY_NAME_UE = "name_ue";
     public static final String KEY_PERCENTAGE_UE = "percentage_ue";
@@ -56,11 +56,8 @@ public class UEManager {
         return db.update(TABLE_NAME, values, where, whereArgs);
     }
 
-    public int deleteUE(UE aUE){
-        String where = KEY_ID_UE+" = ?";
-        String[] whereArgs = {aUE.getIdUE()+""};
-
-        return db.delete(TABLE_NAME, where, whereArgs);
+    public void deleteUE(UE aUE){
+        db.execSQL("DELETE FROM "+TABLE_NAME+" WHERE "+KEY_ID_UE+"="+aUE.getIdUE());
     }
 
     public UE getUE(long aId){
