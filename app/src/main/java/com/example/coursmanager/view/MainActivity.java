@@ -15,10 +15,13 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coursmanager.R;
+import com.example.coursmanager.controller.LessonManager;
 import com.example.coursmanager.controller.UEManager;
 import com.example.coursmanager.model.UE;
 
@@ -26,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
     // Manager of UE db
     private UEManager ueManager;
+    private LessonManager lessonManager;
+    private ProgressBar progress;
+    private TextView progressText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         // Create and open the ueManager
         ueManager = new UEManager(this);
         ueManager.open();
+
+        lessonManager = new LessonManager(this);
+
+        progress = findViewById(R.id.progressBar);
+        progressText = findViewById(R.id.progressStatue);
 
         updatePrint();
 
@@ -67,6 +78,24 @@ public class MainActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+
+        if(id == R.id.actionDeleteAll){
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.deleteAll)
+                    .setMessage(R.string.confirmDeleteAll)
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            ueManager.deleteAllUE();
+
+                            updatePrint();
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        }
+                    })
+                    .show();
         }
 
         return super.onOptionsItemSelected(item);
@@ -100,6 +129,22 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Update the progress bar which represent the nb of finished lessons on total nb of lessons
+        //getResources().getDrawable(R.drawable.progressbar_states).setBounds(0,0, 150, 50);
+        //this.progress.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_states));
+        int nbTot = lessonManager.getNumberLessons();
+        int nbFin = lessonManager.getNumberLessonsFinished();
+        // To avoid an empty ring progress bar
+        if(nbTot == 0){
+            this.progress.setMax(1);
+        }else {
+            this.progress.setMax(nbTot);
+        }
+        this.progress.setProgress(nbFin);
+
+        int percent = (int) Math.round(((float)nbFin/(float)nbTot)*100);
+        this.progressText.setText(String.valueOf(percent)+" %");
     }
 
     // When you click on the button to add UE
@@ -146,6 +191,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .setCancelable(false).show();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        updatePrint();
     }
 
 }

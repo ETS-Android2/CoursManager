@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.coursmanager.R;
 import com.example.coursmanager.model.UE;
 import com.example.coursmanager.tools.MySQLite;
 
@@ -75,6 +74,10 @@ public class UEManager {
 
     public Cursor getAllUE(){
         return db.rawQuery("SELECT * FROM "+TABLE_NAME, null);
+    }
+
+    public void deleteAllUE(){
+        db.execSQL("DELETE FROM "+TABLE_NAME);
     }
 
 }

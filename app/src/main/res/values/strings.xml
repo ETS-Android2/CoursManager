@@ -20,6 +20,8 @@
     <string name="yes">YES</string>
     <string name="no">NO</string>
     <string name="finish">Finish</string>
+    <string name="deleteAll">Delete all</string>
+    <string name="confirmDeleteAll">Do you really want to delete everything ?</string>
 
     <string name="title_activity_subject" translatable="false"></string>
     <string name="title_activity_lesson" translatable="false"></string>

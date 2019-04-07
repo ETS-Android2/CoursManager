@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -84,6 +85,7 @@ public class LessonActivity extends AppCompatActivity {
         LinearLayout layout = new LinearLayout(this);
         final EditText editText = new EditText(this);
         final EditText editTextTeach = new EditText(this);
+        final EditText editDate = new EditText(this);
 
         editText.setHint(R.string.defaultNameLesson);
         editTextTeach.setHint(R.string.defaultNameTeach);
@@ -130,6 +132,12 @@ public class LessonActivity extends AppCompatActivity {
                     }
                 })
                 .setCancelable(false).show();
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        updatePrint();
     }
 
 }

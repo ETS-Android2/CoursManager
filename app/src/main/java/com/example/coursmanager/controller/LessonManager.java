@@ -99,4 +99,12 @@ public class LessonManager {
         return db.rawQuery("SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_IDSUBJECT_LESSON+" = "+idSubject, null);
     }
 
+    public int getNumberLessons(){
+        return mySQLiteBase.getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_NAME_LESSON, null).getCount();
+    }
+
+    public int getNumberLessonsFinished(){
+        return mySQLiteBase.getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_FINISH_LESSON+" = "+1, null).getCount();
+    }
+
 }

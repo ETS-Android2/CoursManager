@@ -129,4 +129,10 @@ public class SubjectActivity extends AppCompatActivity {
                 .setCancelable(false).show();
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updatePrint();
+    }
+
 }

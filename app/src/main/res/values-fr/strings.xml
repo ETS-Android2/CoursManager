@@ -21,4 +21,6 @@
     <string name="defaultNameTeach">Nom du professeur</string>
     <string name="lessonAddGood">Cours créé</string>
     <string name="finish">Fini</string>
+    <string name="deleteAll">Tout supprimer</string>
+    <string name="confirmDeleteAll">Voulez-vous vraiment tout supprimer ?</string>
 </resources>

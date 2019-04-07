@@ -37,4 +37,10 @@ public class MySQLite extends SQLiteOpenHelper{
         onCreate(sqLiteDatabase);
     }
 
+    @Override
+    public void onOpen(SQLiteDatabase db){
+        super.onOpen(db);
+        db.execSQL("PRAGMA foreign_keys=ON");
+    }
+
 }
