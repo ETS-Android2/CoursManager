@@ -63,4 +63,14 @@ public class LessonDetailsActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed(){
+        // Confirm change and return to LessonActivity
+        currentLesson.setNote(textNote.getText().toString());
+        currentLesson.setFinish(checkFinish.isChecked());
+
+        lessonManager.updateLesson(currentLesson);
+        finish();
+    }
+
 }
