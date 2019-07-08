@@ -58,7 +58,7 @@ public class LessonActivity extends AppCompatActivity {
         Cursor c = lessonManager.getAllLessonSubject(idSubject);
         String[] fromFieldNames = new String[] {LessonManager.KEY_NAME_LESSON, LessonManager.KEY_FINISH_LESSON};
         int[] toViewIDs = new int[] {R.id.textNameUE, R.id.textPercentageUE};
-        SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout, c, fromFieldNames, toViewIDs, 0);
+        SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_lesson, c, fromFieldNames, toViewIDs, 0);
         ListView myList = findViewById(R.id.listViewLesson);
         myList.setAdapter(myCursorAdapter);
 

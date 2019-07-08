@@ -58,7 +58,7 @@ public class SubjectActivity extends AppCompatActivity {
         Cursor c = subjectManager.getAllSubjectUE(this.idUE);
         String[] fromFieldNames = new String[] {subjectManager.KEY_NAME_SUBJECT, subjectManager.KEY_FINISH_SUBJECT};
         int[] toViewIDs = new int[] {R.id.textNameUE, R.id.textPercentageUE};
-        SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout, c, fromFieldNames, toViewIDs, 0);
+        SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_subject, c, fromFieldNames, toViewIDs, 0);
         ListView myList = findViewById(R.id.listViewSubject);
         myList.setAdapter(myCursorAdapter);
 

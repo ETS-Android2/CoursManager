@@ -41,6 +41,7 @@
         android:ems="10"
         android:inputType="textMultiLine"
         android:gravity="left|top"
+        android:background="@drawable/edit_text_details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
