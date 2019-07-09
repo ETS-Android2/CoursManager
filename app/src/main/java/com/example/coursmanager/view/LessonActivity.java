@@ -1,8 +1,11 @@
 package com.example.coursmanager.view;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.DataSetObserver;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -10,18 +13,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coursmanager.R;
 import com.example.coursmanager.controller.LessonManager;
 import com.example.coursmanager.model.Lesson;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 public class LessonActivity extends AppCompatActivity {
@@ -56,9 +67,28 @@ public class LessonActivity extends AppCompatActivity {
 
     public void updatePrint(){
         Cursor c = lessonManager.getAllLessonSubject(idSubject);
+        c.moveToPosition(1);
+        Log.d("Debug: ", c.getString(c.getColumnIndex(LessonManager.KEY_NAME_LESSON)));
         String[] fromFieldNames = new String[] {LessonManager.KEY_NAME_LESSON, LessonManager.KEY_FINISH_LESSON};
-        int[] toViewIDs = new int[] {R.id.textNameUE, R.id.textPercentageUE};
+        int[] toViewIDs = new int[] {R.id.textNameLesson, R.id.imageStatus};
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_lesson, c, fromFieldNames, toViewIDs, 0);
+        myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int i) {
+                if(view instanceof TextView){
+                    ((TextView) view).setText(cursor.getString(cursor.getColumnIndex(LessonManager.KEY_NAME_LESSON)));
+                }else{
+                    if((cursor.getInt(cursor.getColumnIndex(LessonManager.KEY_FINISH_LESSON))) == 1){
+                        ((ImageView) view).setImageResource(R.drawable.finish);
+                    }else{
+                        ((ImageView) view).setImageResource(R.drawable.progress);
+                    }
+                }
+
+                return true;
+            }
+        });
+
         ListView myList = findViewById(R.id.listViewLesson);
         myList.setAdapter(myCursorAdapter);
 
@@ -81,11 +111,23 @@ public class LessonActivity extends AppCompatActivity {
         });
     }
 
+    private ArrayList<String> getNamesLessons(Cursor c){
+        ArrayList<String> res = new ArrayList<>();
+
+        c.moveToFirst();
+        while(!c.isAfterLast()) {
+            res.add(c.getString(c.getColumnIndex(LessonManager.KEY_NAME_LESSON)));
+            c.moveToNext();
+        }
+        c.close();
+
+        return res;
+    }
+
     public void submitLesson() {
         LinearLayout layout = new LinearLayout(this);
         final EditText editText = new EditText(this);
         final EditText editTextTeach = new EditText(this);
-        final EditText editDate = new EditText(this);
 
         editText.setHint(R.string.defaultNameLesson);
         editTextTeach.setHint(R.string.defaultNameTeach);
