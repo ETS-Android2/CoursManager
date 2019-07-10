@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.coursmanager.model.UE;
 import com.example.coursmanager.tools.MySQLite;
@@ -70,6 +71,14 @@ public class UEManager {
         }
 
         return ue;
+    }
+
+    public int getProgressOfanUE(long aId){
+        String requete = "SELECT * FROM "+SubjectManager.TABLE_NAME_SUBJECT+" INNER JOIN "+LessonManager.TABLE_NAME_LESSON+" ON "+SubjectManager.TABLE_NAME_SUBJECT+"."+SubjectManager.KEY_ID_SUBJECT+" = "+LessonManager.TABLE_NAME_LESSON+"."+LessonManager.KEY_IDSUBJECT_LESSON+" WHERE "+SubjectManager.KEY_IDUE_SUBJECT+" = "+aId;
+        int nbTot = db.rawQuery(requete, null).getCount();
+        int nbFinished = db.rawQuery(requete+" AND "+LessonManager.TABLE_NAME_LESSON+"."+LessonManager.KEY_FINISH_LESSON+" = "+1 , null).getCount();
+        
+        return (int) Math.round(((float)nbFinished/(float)nbTot)*100);
     }
 
     public Cursor getAllUE(){

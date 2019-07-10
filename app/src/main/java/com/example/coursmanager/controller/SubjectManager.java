@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.example.coursmanager.model.Subject;
 import com.example.coursmanager.tools.MySQLite;
@@ -76,6 +77,13 @@ public class SubjectManager {
         }
 
         return sb;
+    }
+
+    public int getProgressOfaSubject(long aId){
+        int nbTot = db.rawQuery("SELECT * FROM "+LessonManager.TABLE_NAME_LESSON+" WHERE "+LessonManager.KEY_IDSUBJECT_LESSON+" = "+aId, null).getCount();
+        int nbFinished = db.rawQuery("SELECT * FROM "+LessonManager.TABLE_NAME_LESSON+" WHERE "+LessonManager.KEY_FINISH_LESSON+" = "+1+" AND "+LessonManager.KEY_IDSUBJECT_LESSON+" = "+aId, null).getCount();
+
+        return (int) Math.round(((float)nbFinished/(float)nbTot)*100);
     }
 
     public Cursor getAllSubjectUE(long idUE){

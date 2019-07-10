@@ -104,9 +104,22 @@ public class MainActivity extends AppCompatActivity {
     // Update the listView of UEs
     public void updatePrint(){
         Cursor c = ueManager.getAllUE();
-        String[] fromFieldNames = new String[] {UEManager.KEY_NAME_UE, UEManager.KEY_PERCENTAGE_UE};
-        int[] toViewIDs = new int[] {R.id.textNameUE, R.id.textPercentageUE};
+        String[] fromFieldNames = new String[] {ueManager.KEY_NAME_UE, ueManager.KEY_PERCENTAGE_UE};
+        int[] toViewIDs = new int[] {R.id.textNameUE, R.id.progressUE};
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout, c, fromFieldNames, toViewIDs, 0);
+        myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int i) {
+                if(view instanceof TextView){
+                    ((TextView) view).setText(cursor.getString(cursor.getColumnIndex(ueManager.KEY_NAME_UE)));
+                }else{
+                    ((ProgressBar) view).setProgress(ueManager.getProgressOfanUE(cursor.getLong(cursor.getColumnIndex("_id"))));
+                }
+
+                return true;
+            }
+        });
+
         ListView myList = findViewById(R.id.listView);
         myList.setAdapter(myCursorAdapter);
 

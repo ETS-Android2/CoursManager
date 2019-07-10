@@ -67,8 +67,6 @@ public class LessonActivity extends AppCompatActivity {
 
     public void updatePrint(){
         Cursor c = lessonManager.getAllLessonSubject(idSubject);
-        c.moveToPosition(1);
-        Log.d("Debug: ", c.getString(c.getColumnIndex(LessonManager.KEY_NAME_LESSON)));
         String[] fromFieldNames = new String[] {LessonManager.KEY_NAME_LESSON, LessonManager.KEY_FINISH_LESSON};
         int[] toViewIDs = new int[] {R.id.textNameLesson, R.id.imageStatus};
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_lesson, c, fromFieldNames, toViewIDs, 0);
@@ -106,22 +104,10 @@ public class LessonActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), LessonDetailsActivity.class);
                 intent.putExtra("idLesson", id);
                 intent.putExtra("lessonName", lessonManager.getLesson(id).getNameLesson());
+                intent.putExtra("idSubject", idSubject);
                 startActivity(intent);
             }
         });
-    }
-
-    private ArrayList<String> getNamesLessons(Cursor c){
-        ArrayList<String> res = new ArrayList<>();
-
-        c.moveToFirst();
-        while(!c.isAfterLast()) {
-            res.add(c.getString(c.getColumnIndex(LessonManager.KEY_NAME_LESSON)));
-            c.moveToNext();
-        }
-        c.close();
-
-        return res;
     }
 
     public void submitLesson() {

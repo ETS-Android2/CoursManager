@@ -14,7 +14,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coursmanager.R;
@@ -57,8 +59,21 @@ public class SubjectActivity extends AppCompatActivity {
     public void updatePrint(){
         Cursor c = subjectManager.getAllSubjectUE(this.idUE);
         String[] fromFieldNames = new String[] {subjectManager.KEY_NAME_SUBJECT, subjectManager.KEY_FINISH_SUBJECT};
-        int[] toViewIDs = new int[] {R.id.textNameUE, R.id.textPercentageUE};
+        int[] toViewIDs = new int[] {R.id.textNameSubject, R.id.progressSubject};
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_subject, c, fromFieldNames, toViewIDs, 0);
+        myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int i) {
+                if(view instanceof TextView){
+                    ((TextView) view).setText(cursor.getString(cursor.getColumnIndex(subjectManager.KEY_NAME_SUBJECT)));
+                }else{
+                    ((ProgressBar) view).setProgress(subjectManager.getProgressOfaSubject(cursor.getLong(cursor.getColumnIndex("_id"))));
+                }
+
+                return true;
+            }
+        });
+
         ListView myList = findViewById(R.id.listViewSubject);
         myList.setAdapter(myCursorAdapter);
 
