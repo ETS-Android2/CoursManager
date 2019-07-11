@@ -26,4 +26,5 @@
     <string name="title_activity_subject" translatable="false"></string>
     <string name="title_activity_lesson" translatable="false"></string>
     <string name="title_activity_lesson_details" translatable="false">LessonDetailsActivity</string>
+    <string name="title_activity_custom_dialog">CustomDialog</string>
 </resources>

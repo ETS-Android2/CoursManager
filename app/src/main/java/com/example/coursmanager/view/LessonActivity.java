@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -101,11 +103,9 @@ public class LessonActivity extends AppCompatActivity {
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), LessonDetailsActivity.class);
-                intent.putExtra("idLesson", id);
-                intent.putExtra("lessonName", lessonManager.getLesson(id).getNameLesson());
-                intent.putExtra("idSubject", idSubject);
-                startActivity(intent);
+                CustomDialog cd = new CustomDialog(LessonActivity.this, id, idSubject, lessonManager.getLesson(id).getNameLesson());
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.show();
             }
         });
     }
