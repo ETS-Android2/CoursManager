@@ -27,4 +27,5 @@
     <string name="title_activity_lesson" translatable="false"></string>
     <string name="title_activity_lesson_details" translatable="false">LessonDetailsActivity</string>
     <string name="title_activity_custom_dialog">CustomDialog</string>
+    <string name="title_activity_post_cards">PostCardsActivity</string>
 </resources>

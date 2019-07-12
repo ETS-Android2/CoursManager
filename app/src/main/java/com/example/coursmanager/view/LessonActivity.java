@@ -1,28 +1,20 @@
 package com.example.coursmanager.view;
 
-import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -32,10 +24,8 @@ import com.example.coursmanager.R;
 import com.example.coursmanager.controller.LessonManager;
 import com.example.coursmanager.model.Lesson;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 
 public class LessonActivity extends AppCompatActivity {
 
@@ -104,7 +94,7 @@ public class LessonActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 CustomDialog cd = new CustomDialog(LessonActivity.this, id, idSubject, lessonManager.getLesson(id).getNameLesson());
-                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                Objects.requireNonNull(cd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cd.show();
             }
         });
