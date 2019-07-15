@@ -10,9 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".view.EditionPostCardActivity"
+            android:label="@string/title_activity_edition_post_card"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".view.PostCardsActivity"
             android:label="@string/title_activity_post_cards"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".view.LessonDetailsActivity"
             android:label="@string/title_activity_lesson_details"

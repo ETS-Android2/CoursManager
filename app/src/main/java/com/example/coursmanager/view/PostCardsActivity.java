@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.coursmanager.R;
 import com.example.coursmanager.controller.PostCardManager;
-import com.example.coursmanager.model.PostCard;
 
 public class PostCardsActivity extends AppCompatActivity {
 
@@ -57,7 +56,7 @@ public class PostCardsActivity extends AppCompatActivity {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int i) {
                 if(view instanceof TextView){
-                    ((TextView) view).setText(cursor.getString(cursor.getColumnIndex(PostCardManager.KEY_ID_POSTCARD)));
+                    ((TextView) view).setText(String.valueOf(cursor.getPosition()+1));
                 }
 
                 return true;
@@ -66,6 +65,17 @@ public class PostCardsActivity extends AppCompatActivity {
 
         GridView myList = findViewById(R.id.gridList);
         myList.setAdapter(myCursorAdapter);
+
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), EditionPostCardActivity.class);
+                intent.putExtra("creation", false);
+                intent.putExtra("idLesson", idLesson);
+                intent.putExtra("idPost", id);
+                startActivity(intent);
+            }
+        });
 
         myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -77,7 +87,11 @@ public class PostCardsActivity extends AppCompatActivity {
     }
 
     public void submitPostCard(){
-        postCardManager.addPostCard(new PostCard(0, "", "", "", idLesson));
+        Intent intent = new Intent(getApplicationContext(), EditionPostCardActivity.class);
+        intent.putExtra("creation", true);
+        intent.putExtra("idLesson", idLesson);
+        startActivity(intent);
+
         updatePrint();
     }
 
