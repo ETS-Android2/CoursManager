@@ -22,11 +22,14 @@
     <string name="finish">Finish</string>
     <string name="deleteAll">Delete all</string>
     <string name="confirmDeleteAll">Do you really want to delete everything ?</string>
+    <string name="name">Name</string>
+    <string name="editionPost">Post-Card edition</string>
 
     <string name="title_activity_subject" translatable="false"></string>
     <string name="title_activity_lesson" translatable="false"></string>
     <string name="title_activity_lesson_details" translatable="false">LessonDetailsActivity</string>
-    <string name="title_activity_custom_dialog">CustomDialog</string>
-    <string name="title_activity_post_cards">PostCardsActivity</string>
-    <string name="title_activity_edition_post_card">EditionPostCardActivity</string>
+    <string name="title_activity_custom_dialog" translatable="false">CustomDialog</string>
+    <string name="title_activity_post_cards" translatable="false">PostCardsActivity</string>
+    <string name="title_activity_edition_post_card" translatable="false">EditionPostCardActivity</string>
+    <string name="title_activity_play_post_card">PlayPostCardActivity</string>
 </resources>

@@ -45,6 +45,23 @@ public class PostCardsActivity extends AppCompatActivity {
                 submitPostCard();
             }
         });
+
+        FloatingActionButton fabPlay = findViewById(R.id.fabPlay);
+        fabPlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PlayPostCardActivity.class);
+                intent.putExtra("idLesson", idLesson);
+                startActivity(intent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        updatePrint();
     }
 
     public void updatePrint(){
@@ -91,8 +108,6 @@ public class PostCardsActivity extends AppCompatActivity {
         intent.putExtra("creation", true);
         intent.putExtra("idLesson", idLesson);
         startActivity(intent);
-
-        updatePrint();
     }
 
     public void askToDeletePostCard(final long id){

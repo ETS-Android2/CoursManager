@@ -23,4 +23,6 @@
     <string name="finish">Fini</string>
     <string name="deleteAll">Tout supprimer</string>
     <string name="confirmDeleteAll">Voulez-vous vraiment tout supprimer ?</string>
+    <string name="name">Nom</string>
+    <string name="editionPost">Edition de Post-Card</string>
 </resources>

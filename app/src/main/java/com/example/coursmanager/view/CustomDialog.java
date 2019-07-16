@@ -50,7 +50,6 @@ public class CustomDialog extends Dialog implements android.view.View.OnClickLis
                 intent = new Intent(activity.getApplicationContext(), PostCardsActivity.class);
                 intent.putExtra("idLesson", idLesson);
                 intent.putExtra("lessonName", name);
-                intent.putExtra("idSubject", idSubject);
                 activity.startActivity(intent);
                 break;
             default:
