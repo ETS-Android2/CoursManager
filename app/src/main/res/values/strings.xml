@@ -27,8 +27,8 @@
     <string name="first">It\'s the first post-card</string>
     <string name="last">It\'s the last post-card</string>
 
-    <string name="title_activity_subject" translatable="false"></string>
-    <string name="title_activity_lesson" translatable="false"></string>
+    <string name="title_activity_subject" translatable="false">SubjectActivity</string>
+    <string name="title_activity_lesson" translatable="false">LessonActivity</string>
     <string name="title_activity_lesson_details" translatable="false">LessonDetailsActivity</string>
     <string name="title_activity_custom_dialog" translatable="false">CustomDialog</string>
     <string name="title_activity_post_cards" translatable="false">PostCardsActivity</string>

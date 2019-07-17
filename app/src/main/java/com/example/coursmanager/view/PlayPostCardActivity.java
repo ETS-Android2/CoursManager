@@ -17,7 +17,6 @@ public class PlayPostCardActivity extends AppCompatActivity {
 
     private TextView tPostCard;
     private Cursor c;
-    private PostCardManager postCardManager;
     private boolean recto;
 
     @Override
@@ -28,8 +27,8 @@ public class PlayPostCardActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
 
-        this.postCardManager = new PostCardManager(this);
-        this.postCardManager.open();
+        PostCardManager postCardManager = new PostCardManager(this);
+        postCardManager.open();
         this.c = postCardManager.getAllPostCardLesson(intent.getLongExtra("idLesson", 0));
         this.tPostCard = findViewById(R.id.tPostCard);
         this.recto = true;
