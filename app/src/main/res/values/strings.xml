@@ -24,6 +24,8 @@
     <string name="confirmDeleteAll">Do you really want to delete everything ?</string>
     <string name="name">Name</string>
     <string name="editionPost">Post-Card edition</string>
+    <string name="first">It\'s the first post-card</string>
+    <string name="last">It\'s the last post-card</string>
 
     <string name="title_activity_subject" translatable="false"></string>
     <string name="title_activity_lesson" translatable="false"></string>
@@ -31,5 +33,6 @@
     <string name="title_activity_custom_dialog" translatable="false">CustomDialog</string>
     <string name="title_activity_post_cards" translatable="false">PostCardsActivity</string>
     <string name="title_activity_edition_post_card" translatable="false">EditionPostCardActivity</string>
-    <string name="title_activity_play_post_card">PlayPostCardActivity</string>
+    <string name="title_activity_play_post_card" translatable="false">PlayPostCardActivity</string>
+    <string name="theme">Theme</string>
 </resources>

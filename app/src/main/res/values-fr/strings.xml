@@ -25,4 +25,7 @@
     <string name="confirmDeleteAll">Voulez-vous vraiment tout supprimer ?</string>
     <string name="name">Nom</string>
     <string name="editionPost">Edition de Post-Card</string>
+    <string name="theme">Thème</string>
+    <string name="first">C\'est la première post-card</string>
+    <string name="last">C\'est la dernière post-card</string>
 </resources>

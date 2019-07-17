@@ -6,15 +6,19 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".view.PlayPostCardActivity"
-    tools:showIn="@layout/activity_play_post_card">
+    tools:showIn="@layout/activity_play_post_card"
+    android:background="#fff">
 
     <TextView
-        android:id="@+id/tVerso"
+        android:id="@+id/tPostCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text=""
         android:layout_margin="10dp"
-        android:background="#0052d6"
+        android:background="@drawable/edit_recto"
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
