@@ -10,9 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".view.LessonDetailPostActivity"
+            android:label="@string/title_activity_lesson_detail_post"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" ></activity>
+        <activity
             android:name=".view.PlayPostCardActivity"
             android:label="@string/title_activity_play_post_card"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen"></activity>
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
         <activity
             android:name=".view.EditionPostCardActivity"
             android:label="@string/title_activity_edition_post_card"

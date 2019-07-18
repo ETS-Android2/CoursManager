@@ -93,9 +93,13 @@ public class LessonActivity extends AppCompatActivity {
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CustomDialog cd = new CustomDialog(LessonActivity.this, id, idSubject, lessonManager.getLesson(id).getNameLesson());
+                Intent intent = new Intent(getApplicationContext(), LessonDetailPostActivity.class);
+                intent.putExtra("idLesson", id);
+                startActivity(intent);
+
+                /*CustomDialog cd = new CustomDialog(LessonActivity.this, id, idSubject, lessonManager.getLesson(id).getNameLesson());
                 Objects.requireNonNull(cd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                cd.show();
+                cd.show();*/
             }
         });
     }
