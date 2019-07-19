@@ -23,6 +23,7 @@ public class LessonDetailPostActivity extends AppCompatActivity {
 
     private Fragment fragmentDetails;
     private Fragment fragmentPostCard;
+    private Fragment fragmentReReading;
     private FragmentManager fm;
     Fragment active;
 
@@ -45,6 +46,10 @@ public class LessonDetailPostActivity extends AppCompatActivity {
                         fm.beginTransaction().hide(active).show(fragmentPostCard).commit();
                         active = fragmentPostCard;
                         return true;
+                    case R.id.navigation_rereading:
+                        fm.beginTransaction().hide(active).show(fragmentReReading).commit();
+                        active = fragmentReReading;
+                        return true;
                 }
                 return false;
             }
@@ -56,9 +61,11 @@ public class LessonDetailPostActivity extends AppCompatActivity {
 
         this.fragmentDetails = LessonDetailsFragment.newInstance(intent.getLongExtra("idLesson", 0));
         this.fragmentPostCard = LessonPostFragment.newInstance(intent.getLongExtra("idLesson", 0));
+        this.fragmentReReading = LessonReReadingFragment.newInstance();
         this.active = fragmentDetails;
         this.fm = getSupportFragmentManager();
 
+        fm.beginTransaction().add(R.id.fragment_container, fragmentReReading, "3").hide(fragmentReReading).commit();
         fm.beginTransaction().add(R.id.fragment_container, fragmentPostCard, "2").hide(fragmentPostCard).commit();
         fm.beginTransaction().add(R.id.fragment_container, fragmentDetails, "1").commit();
     }

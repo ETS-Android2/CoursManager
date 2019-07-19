@@ -58,8 +58,6 @@ public class LessonDetailsFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_lesson_details, container, false);
 
-        Log.d("Deebuug", String.valueOf(rootView.getId()));
-
         this.textDetails = rootView.findViewById(R.id.textDetails);
         this.textDetails.setText(currentLesson.getNameTeacher());
 

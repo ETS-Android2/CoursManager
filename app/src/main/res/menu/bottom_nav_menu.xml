@@ -3,12 +3,17 @@
 
     <item
         android:id="@+id/navigation_details"
-        android:icon="@drawable/ic_launcher_background"
-        android:title="Détails" />
+        android:icon="@drawable/details"
+        android:title="@string/navigationDetails" />
 
     <item
         android:id="@+id/navigation_post_card"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="Post-Cards" />
+        android:icon="@drawable/post"
+        android:title="@string/navigationPost" />
+
+    <item
+        android:id="@+id/navigation_rereading"
+        android:icon="@drawable/reading"
+        android:title="@string/navigationReReading" />
 
 </menu>
