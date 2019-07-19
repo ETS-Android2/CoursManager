@@ -95,11 +95,8 @@ public class LessonActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getApplicationContext(), LessonDetailPostActivity.class);
                 intent.putExtra("idLesson", id);
+                intent.putExtra("lessonName", lessonManager.getLesson(id).getNameLesson());
                 startActivity(intent);
-
-                /*CustomDialog cd = new CustomDialog(LessonActivity.this, id, idSubject, lessonManager.getLesson(id).getNameLesson());
-                Objects.requireNonNull(cd.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                cd.show();*/
             }
         });
     }

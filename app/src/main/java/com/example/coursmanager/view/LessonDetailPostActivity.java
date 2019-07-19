@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -21,27 +23,17 @@ public class LessonDetailPostActivity extends AppCompatActivity {
 
     private Fragment fragmentDetails;
     private Fragment fragmentPostCard;
-    final FragmentManager fm = getSupportFragmentManager();
-    Fragment active = fragmentDetails;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener;
-
-    private Lesson currentLesson;
+    private FragmentManager fm;
+    Fragment active;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lesson_detail_post);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        Intent intent = getIntent();
-        setTitle(intent.getStringExtra("lessonName"));
-
-        this.fragmentDetails = LessonDetailsFragment.newInstance(intent.getLongExtra("idLesson", 0));
-        this.fragmentPostCard = new LessonPostFragment();
-
-        mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        navView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
@@ -56,15 +48,24 @@ public class LessonDetailPostActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        };
+        });
 
-        fm.beginTransaction().add(R.id.fragment_container1, fragmentDetails).hide(fragmentDetails).commit();
-        fm.beginTransaction().add(R.id.fragment_container1, fragmentPostCard).hide(fragmentPostCard).commit();
+        Intent intent = getIntent();
+        setTitle(intent.getStringExtra("lessonName"));
+        Log.d("Debug", intent.getStringExtra("lessonName"));
+
+        this.fragmentDetails = LessonDetailsFragment.newInstance(intent.getLongExtra("idLesson", 0));
+        this.fragmentPostCard = LessonPostFragment.newInstance(intent.getLongExtra("idLesson", 0));
+        this.active = fragmentDetails;
+        this.fm = getSupportFragmentManager();
+
+        fm.beginTransaction().add(R.id.fragment_container, fragmentPostCard, "2").hide(fragmentPostCard).commit();
+        fm.beginTransaction().add(R.id.fragment_container, fragmentDetails, "1").commit();
     }
 
-    /*@Override
+    @Override
     public void onBackPressed(){
-
-    }*/
+        super.onBackPressed();
+    }
 
 }
