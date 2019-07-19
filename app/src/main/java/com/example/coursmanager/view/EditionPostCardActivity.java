@@ -32,7 +32,6 @@ public class EditionPostCardActivity extends AppCompatActivity {
 
         setTitle(R.string.editionPost);
 
-        this.editName = findViewById(R.id.editNamePost);
         this.editRecto = findViewById(R.id.editRecto);
         this.editVerso = findViewById(R.id.editVerso);
 
@@ -48,7 +47,6 @@ public class EditionPostCardActivity extends AppCompatActivity {
         else {
             currentPostCard = postCardManager.getPostCard(intent.getLongExtra("idPost", 0));
 
-            editName.setText(currentPostCard.getTheme());
             editRecto.setText(currentPostCard.getRecto());
             editVerso.setText(currentPostCard.getVerso());
         }
@@ -63,7 +61,6 @@ public class EditionPostCardActivity extends AppCompatActivity {
     }
 
     public void savePostCard(){
-        currentPostCard.setTheme(editName.getText().toString());
         currentPostCard.setRecto(editRecto.getText().toString());
         currentPostCard.setVerso(editVerso.getText().toString());
 

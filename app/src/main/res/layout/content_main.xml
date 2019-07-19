@@ -32,6 +32,8 @@
         android:gravity="center"
         android:text="70 %"
         android:textSize="25sp"
+        android:textStyle="bold"
+        android:textColor="#fff"
         app:layout_constraintBottom_toTopOf="@+id/listView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
