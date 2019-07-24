@@ -3,8 +3,6 @@ package com.example.coursmanager.view;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -25,7 +23,6 @@ import com.example.coursmanager.controller.LessonManager;
 import com.example.coursmanager.model.Lesson;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class LessonActivity extends AppCompatActivity {
 
@@ -120,7 +117,7 @@ public class LessonActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.btnAdd, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Create a UE in db
-                        if(lessonManager.addLesson(new Lesson(0, editText.getText().toString(), editTextTeach.getText().toString(), new Date().getTime(), "",false, idSubject)) == -1){
+                        if(lessonManager.addLesson(new Lesson(0, editText.getText().toString(), editTextTeach.getText().toString(), new Date().getTime(), "",false, idSubject, 10, 0)) == -1){
                             Toast.makeText(getApplicationContext(), R.string.lessonAddError, Toast.LENGTH_LONG).show();
                         }else{
                             Toast.makeText(getApplicationContext(), R.string.lessonAddGood, Toast.LENGTH_LONG).show();

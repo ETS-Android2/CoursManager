@@ -19,6 +19,8 @@ public class LessonManager {
     public static final String KEY_DATE = "date";
     public static final String KEY_IDSUBJECT_LESSON = "id_subject";
     public static final String KEY_FINISH_LESSON = "finish";
+    public static final String KEY_OBJECTIVE_LESSON = "objective";
+    public static final String KEY_NB_READ_LESSON = "nb_read";
 
     public static final String CREATE_TABLE_LESSON = "CREATE TABLE "+TABLE_NAME_LESSON+
             "("+KEY_ID_LESSON+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
@@ -28,6 +30,8 @@ public class LessonManager {
             " "+KEY_DATE+" INTEGER,"+
             " "+KEY_IDSUBJECT_LESSON+" INTEGER,"+
             " "+KEY_FINISH_LESSON+" NUMERIC,"+
+            " "+KEY_OBJECTIVE_LESSON+" INTEGER,"+
+            " "+KEY_NB_READ_LESSON+" INTEGER,"+
             " FOREIGN KEY("+KEY_IDSUBJECT_LESSON+") REFERENCES "+SubjectManager.TABLE_NAME_SUBJECT+"("+SubjectManager.KEY_ID_SUBJECT+")"+" ON DELETE CASCADE"+
             ");";
     private MySQLite mySQLiteBase;
@@ -53,6 +57,8 @@ public class LessonManager {
         values.put(KEY_DATE, aLesson.getDate());
         values.put(KEY_IDSUBJECT_LESSON, aLesson.getIdSubject());
         values.put(KEY_FINISH_LESSON, aLesson.getFinish());
+        values.put(KEY_OBJECTIVE_LESSON, aLesson.getObjective());
+        values.put(KEY_NB_READ_LESSON, aLesson.getNbRead());
 
         return db.insert(TABLE_NAME_LESSON, null, values);
     }
@@ -65,11 +71,11 @@ public class LessonManager {
         values.put(KEY_DATE, aLesson.getDate());
         values.put(KEY_IDSUBJECT_LESSON, aLesson.getIdSubject());
         values.put(KEY_FINISH_LESSON, aLesson.getFinish());
+        values.put(KEY_OBJECTIVE_LESSON, aLesson.getObjective());
+        values.put(KEY_NB_READ_LESSON, aLesson.getNbRead());
 
         String where = KEY_ID_LESSON+" = ?";
         String[] whereArgs = {aLesson.getIdLesson()+""};
-
-        //Log.d("id ========>", aLesson.getNameLesson()+"/"+String.valueOf(aLesson.getIdLesson()));
 
         return db.update(TABLE_NAME_LESSON, values, where, whereArgs);
     }
@@ -79,7 +85,7 @@ public class LessonManager {
     }
 
     public Lesson getLesson(long aId){
-        Lesson l = new Lesson(0, "", "", 0, "", false, 0);
+        Lesson l = new Lesson(0, "", "", 0, "", false, 0, 0, 0);
 
         Cursor c = db.rawQuery("SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_ID_LESSON+"="+aId, null);
         if(c.moveToFirst()){
@@ -90,6 +96,8 @@ public class LessonManager {
             l.setNote(c.getString(c.getColumnIndex(KEY_NOTE)));
             l.setIdSubject(c.getInt(c.getColumnIndex(KEY_IDSUBJECT_LESSON)));
             l.setFinish(c.getInt(c.getColumnIndex(KEY_FINISH_LESSON)) > 0);
+            l.setObjectve(c.getInt(c.getColumnIndex(KEY_OBJECTIVE_LESSON)));
+            l.setNbRead(c.getInt(c.getColumnIndex(KEY_NB_READ_LESSON)));
         }
 
         return l;

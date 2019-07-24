@@ -1,37 +1,39 @@
 package com.example.coursmanager.view;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.coursmanager.R;
+import com.example.coursmanager.controller.LessonManager;
+import com.example.coursmanager.model.Lesson;
 import com.example.coursmanager.tools.MyCustomAdapter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class LessonReReadingFragment extends Fragment {
 
     private View rootView;
     private TextView textTotal, textGoal;
 
-    private int objective;
-    private int nbReading;
+    public int objective;
+    public int nbReading;
 
     public LessonReReadingFragment() {
     }
 
-    public static LessonReReadingFragment newInstance() {
+    public static LessonReReadingFragment newInstance(int obj, int nbR) {
         LessonReReadingFragment fragment = new LessonReReadingFragment();
 
         Bundle args = new Bundle();
+        args.putInt("objective", obj);
+        args.putInt("nbReading", nbR);
         fragment.setArguments(args);
 
         return fragment;
@@ -41,8 +43,8 @@ public class LessonReReadingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.objective = 20;
-        this.nbReading = 3;
+        this.objective = getArguments().getInt("objective");
+        this.nbReading = getArguments().getInt("nbReading");
     }
 
     @Override
@@ -98,15 +100,18 @@ public class LessonReReadingFragment extends Fragment {
         GridView myList = rootView.findViewById(R.id.gridList);
         myList.setAdapter(new MyCustomAdapter(getContext(), buildListFinished(objective, nbReading)));
 
-        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                nbReading++;
-                textTotal.setText(String.valueOf(nbReading) + " / " + String.valueOf(objective));
-            }
-        });
-
         textGoal.setText(String.valueOf(objective));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        save();
+    }
+
+    private void save(){
+        ((LessonDetailPostActivity) getActivity()).objective = objective;
+        ((LessonDetailPostActivity) getActivity()).nbReading = nbReading;
     }
 
 }

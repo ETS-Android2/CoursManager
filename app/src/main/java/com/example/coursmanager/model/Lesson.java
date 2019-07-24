@@ -9,8 +9,10 @@ public class Lesson {
     private String note;
     private boolean finish;
     private long idSubject;
+    private int objective;
+    private int nbRead;
 
-    public Lesson(long aId, String lesson, String teacher, long date, String note, boolean finish, long subject){
+    public Lesson(long aId, String lesson, String teacher, long date, String note, boolean finish, long subject, int objective, int nbRead){
         this.idLesson = aId;
         this.nameLesson = lesson;
         this.nameTeacher = teacher;
@@ -18,6 +20,8 @@ public class Lesson {
         this.note = note;
         this.finish = finish;
         this.idSubject = subject;
+        this.objective = objective;
+        this.nbRead = nbRead;
     }
 
     public long getIdLesson() {
@@ -74,6 +78,22 @@ public class Lesson {
 
     public void setIdSubject(long idSubject) {
         this.idSubject = idSubject;
+    }
+
+    public int getObjective() {
+        return objective;
+    }
+
+    public void setObjectve(int objective) {
+        this.objective = objective;
+    }
+
+    public int getNbRead() {
+        return nbRead;
+    }
+
+    public void setNbRead(int nbRead) {
+        this.nbRead = nbRead;
     }
 
 }

@@ -25,7 +25,15 @@ public class LessonDetailPostActivity extends AppCompatActivity {
     private Fragment fragmentPostCard;
     private Fragment fragmentReReading;
     private FragmentManager fm;
-    Fragment active;
+    private Fragment active;
+
+    private LessonManager lessonManager;
+    private Lesson currentLesson;
+
+    public int objective;
+    public int nbReading;
+    public String note;
+    public boolean finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +65,15 @@ public class LessonDetailPostActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         setTitle(intent.getStringExtra("lessonName"));
-        Log.d("Debug", intent.getStringExtra("lessonName"));
+
+        this.lessonManager = new LessonManager(getApplicationContext());
+        this.lessonManager.open();
+
+        this.currentLesson = lessonManager.getLesson(intent.getLongExtra("idLesson", 0));
 
         this.fragmentDetails = LessonDetailsFragment.newInstance(intent.getLongExtra("idLesson", 0));
         this.fragmentPostCard = LessonPostFragment.newInstance(intent.getLongExtra("idLesson", 0));
-        this.fragmentReReading = LessonReReadingFragment.newInstance();
+        this.fragmentReReading = LessonReReadingFragment.newInstance(currentLesson.getObjective(), currentLesson.getNbRead());
         this.active = fragmentDetails;
         this.fm = getSupportFragmentManager();
 
@@ -71,8 +83,15 @@ public class LessonDetailPostActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onBackPressed(){
-        super.onBackPressed();
+    public void onPause(){
+        super.onPause();
+
+        currentLesson.setNote(note);
+        currentLesson.setFinish(finish);
+        currentLesson.setObjectve(objective);
+        currentLesson.setNbRead(nbReading);
+
+        lessonManager.updateLesson(currentLesson);
     }
 
 }
