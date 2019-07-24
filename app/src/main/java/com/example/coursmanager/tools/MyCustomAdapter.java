@@ -1,6 +1,7 @@
 package com.example.coursmanager.tools;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +37,7 @@ public class MyCustomAdapter extends ArrayAdapter<Boolean> {
             listItem = LayoutInflater.from(mContext).inflate(R.layout.item_layout_reread,parent,false);
 
         CheckBox checkBox = listItem.findViewById(R.id.checkRead);
+        checkBox.setBackgroundColor(Color.parseColor("#ffffff"));
         checkBox.setChecked(myList.get(position));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
