@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:background="@drawable/edit_recto"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:textStyle="bold"
         android:textSize="30sp"
         android:gravity="center"

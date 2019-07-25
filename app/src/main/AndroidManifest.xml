@@ -12,7 +12,7 @@
         <activity
             android:name=".view.LessonDetailPostActivity"
             android:label="@string/title_activity_lesson_detail_post"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"
             android:windowSoftInputMode="adjustPan" ></activity>
         <activity
             android:name=".view.PlayPostCardActivity"
@@ -21,12 +21,12 @@
         <activity
             android:name=".view.EditionPostCardActivity"
             android:label="@string/title_activity_edition_post_card"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme.NoActionBar.FullScreen"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.LessonActivity"
             android:label="@string/title_activity_lesson"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
         <activity
             android:name=".view.SubjectActivity"
             android:label="@string/title_activity_subject"

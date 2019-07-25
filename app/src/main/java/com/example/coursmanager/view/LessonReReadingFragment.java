@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class LessonReReadingFragment extends Fragment {
 
     private View rootView;
-    private TextView textTotal, textGoal;
+    public TextView textTotal, textGoal;
 
     public int objective;
     public int nbReading;
@@ -94,11 +94,11 @@ public class LessonReReadingFragment extends Fragment {
         return res;
     }
 
-    private void updatePrint(){
+    public void updatePrint(){
         textTotal.setText(String.valueOf(nbReading) + " / " + String.valueOf(objective));
 
         GridView myList = rootView.findViewById(R.id.gridList);
-        myList.setAdapter(new MyCustomAdapter(getContext(), buildListFinished(objective, nbReading)));
+        myList.setAdapter(new MyCustomAdapter(getContext(), buildListFinished(objective, nbReading), this));
 
         textGoal.setText(String.valueOf(objective));
     }

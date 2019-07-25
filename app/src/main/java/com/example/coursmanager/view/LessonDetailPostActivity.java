@@ -8,15 +8,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.coursmanager.R;
 import com.example.coursmanager.controller.LessonManager;
-import com.example.coursmanager.controller.PostCardManager;
 import com.example.coursmanager.model.Lesson;
 
 public class LessonDetailPostActivity extends AppCompatActivity {
@@ -33,7 +28,6 @@ public class LessonDetailPostActivity extends AppCompatActivity {
     public int objective;
     public int nbReading;
     public String note;
-    public boolean finish;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +65,8 @@ public class LessonDetailPostActivity extends AppCompatActivity {
 
         this.currentLesson = lessonManager.getLesson(intent.getLongExtra("idLesson", 0));
 
+        this.nbReading = currentLesson.getNbRead();
+
         this.fragmentDetails = LessonDetailsFragment.newInstance(intent.getLongExtra("idLesson", 0));
         this.fragmentPostCard = LessonPostFragment.newInstance(intent.getLongExtra("idLesson", 0));
         this.fragmentReReading = LessonReReadingFragment.newInstance(currentLesson.getObjective(), currentLesson.getNbRead());
@@ -87,7 +83,7 @@ public class LessonDetailPostActivity extends AppCompatActivity {
         super.onPause();
 
         currentLesson.setNote(note);
-        currentLesson.setFinish(finish);
+        currentLesson.setFinish(nbReading == objective);
         currentLesson.setObjectve(objective);
         currentLesson.setNbRead(nbReading);
 

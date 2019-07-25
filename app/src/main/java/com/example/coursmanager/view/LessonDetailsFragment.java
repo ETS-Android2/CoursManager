@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ public class LessonDetailsFragment extends Fragment {
 
     private LessonManager lessonManager;
     private EditText textNote;
-    private CheckBox checkFinish;
     private Lesson currentLesson;
 
     public LessonDetailsFragment() {
@@ -57,9 +55,6 @@ public class LessonDetailsFragment extends Fragment {
         this.textNote = rootView.findViewById(R.id.editNote);
         this.textNote.setText(currentLesson.getNote());
 
-        this.checkFinish = rootView.findViewById(R.id.checkBox);
-        this.checkFinish.setChecked(currentLesson.getFinish());
-
         return rootView;
     }
 
@@ -71,7 +66,6 @@ public class LessonDetailsFragment extends Fragment {
 
     public void save(){
         ((LessonDetailPostActivity) getActivity()).note = textNote.getText().toString();
-        ((LessonDetailPostActivity) getActivity()).finish = checkFinish.isChecked();
     }
 
 }

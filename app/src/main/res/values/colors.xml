@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#171717</color>
+    <color name="colorPrimary">#2C2C2C</color>
     <color name="colorPrimaryDark">#002766</color>
     <color name="colorAccent">#B20000</color>
+    <color name="colorMiddle">#faa005</color>
+    <color name="colorFinish">#06DA43</color>
     <color name="colorBack">#000</color>
+    <color name="colorUE">#7a78eb</color>
+    <color name="colorSubject">#ffd98c</color>
+    <color name="colorLesson">#ff8c92</color>
 </resources>

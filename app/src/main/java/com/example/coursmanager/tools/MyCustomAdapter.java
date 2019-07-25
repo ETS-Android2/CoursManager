@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 
 import com.example.coursmanager.R;
+import com.example.coursmanager.view.LessonDetailPostActivity;
+import com.example.coursmanager.view.LessonReReadingFragment;
 
 import java.util.ArrayList;
 
@@ -21,12 +24,14 @@ public class MyCustomAdapter extends ArrayAdapter<Boolean> {
 
     private Context mContext;
     private ArrayList<Boolean> myList;
+    private LessonReReadingFragment currentFrament;
 
-    public MyCustomAdapter(@NonNull Context context, ArrayList<Boolean> list){
+    public MyCustomAdapter(@NonNull Context context, ArrayList<Boolean> list, LessonReReadingFragment f){
         super(context, 0, list);
 
         this.mContext = context;
         this.myList = list;
+        this.currentFrament = f;
     }
 
     @NonNull
@@ -37,13 +42,18 @@ public class MyCustomAdapter extends ArrayAdapter<Boolean> {
             listItem = LayoutInflater.from(mContext).inflate(R.layout.item_layout_reread,parent,false);
 
         CheckBox checkBox = listItem.findViewById(R.id.checkRead);
-        checkBox.setBackgroundColor(Color.parseColor("#ffffff"));
+        checkBox.setButtonDrawable(R.drawable.checkbox);
         checkBox.setChecked(myList.get(position));
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(isChecked){
+                if(mContext instanceof LessonDetailPostActivity){
+                    if(isChecked)
+                        currentFrament.nbReading++;
+                    else
+                        currentFrament.nbReading--;
 
+                    currentFrament.textTotal.setText(String.valueOf(currentFrament.nbReading) + " / " + String.valueOf(currentFrament.objective));
                 }
             }
         });
