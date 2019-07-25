@@ -4,29 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.PlayPostCardActivity">
+    tools:context=".view.ShufflePostCardActivity">
 
-    <include layout="@layout/content_play_post_card" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fabPrevious"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="15dp"
-        app:backgroundTint="#000"
-        app:srcCompat="@android:drawable/ic_media_previous"
-        android:focusable="true" />
+    <include layout="@layout/content_shuffle_post_card" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabReplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:layout_gravity="bottom|center"
+        android:layout_gravity="bottom|start"
         android:layout_margin="15dp"
-        app:backgroundTint="#000"
+        app:backgroundTint="@color/colorPrimary"
         app:srcCompat="@drawable/replay_white"
         android:focusable="true" />
 
@@ -37,8 +26,8 @@
         android:clickable="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="15dp"
-        app:backgroundTint="#000"
-        app:srcCompat="@android:drawable/ic_media_next"
-        android:focusable="true" />
+        app:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/shuffle_white"
+        android:focusable="true"/>
 
 </android.support.design.widget.CoordinatorLayout>

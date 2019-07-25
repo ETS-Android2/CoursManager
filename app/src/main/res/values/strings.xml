@@ -30,6 +30,7 @@
     <string name="navigationPost" translatable="false">Post-Cards</string>
     <string name="navigationDetails">Details</string>
     <string name="textGoal">Details</string>
+    <string name="noPostCard">No post-card avaible</string>
 
     <string name="title_activity_subject" translatable="false">SubjectActivity</string>
     <string name="title_activity_lesson" translatable="false">LessonActivity</string>
@@ -39,11 +40,12 @@
     <string name="title_activity_edition_post_card" translatable="false">EditionPostCardActivity</string>
     <string name="title_activity_play_post_card" translatable="false">PlayPostCardActivity</string>
     <string name="theme">Theme</string>
-    <string name="title_activity_lesson_detail_post">LessonDetailPostActivity</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_lesson_detail_post" translatable="false">LessonDetailPostActivity</string>
+    <string name="title_home" translatable="false">Home</string>
+    <string name="title_dashboard" translatable="false">Dashboard</string>
+    <string name="title_notifications" translatable="false">Notifications</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_shuffle_post_card" translatable="false">ShufflePostCardActivity</string>
 </resources>

@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.coursmanager.R;
 import com.example.coursmanager.controller.PostCardManager;
@@ -26,6 +27,7 @@ public class LessonPostFragment extends Fragment {
     private long idLesson;
     private PostCardManager postCardManager;
     private View rootView;
+    private Cursor c;
 
     public LessonPostFragment() {
     }
@@ -46,6 +48,8 @@ public class LessonPostFragment extends Fragment {
 
         this.postCardManager = new PostCardManager(getContext());
         this.postCardManager.open();
+
+        this.c = postCardManager.getAllPostCardLesson(idLesson);
 
         this.idLesson = getArguments().getLong("idLesson", 0);
     }
@@ -69,9 +73,25 @@ public class LessonPostFragment extends Fragment {
         fabPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), PlayPostCardActivity.class);
-                intent.putExtra("idLesson", idLesson);
-                startActivity(intent);
+                if(c.getCount() != 0) {
+                    Intent intent = new Intent(getContext(), PlayPostCardActivity.class);
+                    intent.putExtra("idLesson", idLesson);
+                    startActivity(intent);
+                }else
+                    Toast.makeText(getContext(), R.string.noPostCard, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        FloatingActionButton fabShuffle = rootView.findViewById(R.id.fabShuffle);
+        fabShuffle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(c.getCount() != 0) {
+                    Intent intent = new Intent(getContext(), ShufflePostCardActivity.class);
+                    intent.putExtra("idLesson", idLesson);
+                    startActivity(intent);
+                }else
+                    Toast.makeText(getContext(), R.string.noPostCard, Toast.LENGTH_LONG).show();
             }
         });
 
@@ -90,7 +110,7 @@ public class LessonPostFragment extends Fragment {
     }
 
     public void updatePrint(){
-        Cursor c = postCardManager.getAllPostCardLesson(idLesson);
+        c = postCardManager.getAllPostCardLesson(idLesson);
         String[] fromFieldNames = new String[] {PostCardManager.KEY_ID_POSTCARD};
         int[] toViewIDs = new int[] {R.id.textIdPost};
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getContext(), R.layout.item_layout_postcard, c, fromFieldNames, toViewIDs, 0);

@@ -10,10 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".view.ShufflePostCardActivity"
+            android:label="@string/title_activity_shuffle_post_card"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".view.LessonDetailPostActivity"
             android:label="@string/title_activity_lesson_detail_post"
             android:theme="@style/AppTheme.NoActionBar.FullScreen"
-            android:windowSoftInputMode="adjustPan" ></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.PlayPostCardActivity"
             android:label="@string/title_activity_play_post_card"
