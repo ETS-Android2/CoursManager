@@ -32,4 +32,5 @@
     <string name="navigationReReading">Relecture</string>
     <string name="textGoal">Objectif fixé</string>
     <string name="noPostCard">Pas de post-card disponible</string>
+    <string name="title_activity_settings">Paramètres</string>
 </resources>

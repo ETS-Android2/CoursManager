@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/colorLesson"
+        android:backgroundTint="?attr/colorLesson"
         app:fabSize="mini"
         app:srcCompat="@drawable/play" />
 
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/colorLesson"
+        android:backgroundTint="?attr/colorLesson"
         app:fabSize="mini"
         app:srcCompat="@drawable/suffle"/>
 
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/colorLesson"
+        android:backgroundTint="?attr/colorLesson"
         app:fabSize="mini"
         app:srcCompat="@drawable/plus"/>
 

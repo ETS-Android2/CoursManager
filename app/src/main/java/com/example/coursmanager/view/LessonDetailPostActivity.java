@@ -34,7 +34,7 @@ public class LessonDetailPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        MainActivity.setAppTheme(this);
         setContentView(R.layout.activity_lesson_detail_post);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -125,6 +125,12 @@ public class LessonDetailPostActivity extends AppCompatActivity {
         lessonManager.updateLesson(currentLesson);
 
         fm.beginTransaction().hide(active).commit();
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        fm.beginTransaction().show(active).commit();
     }
 
     @Override

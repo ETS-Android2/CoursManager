@@ -1,7 +1,9 @@
 package com.example.coursmanager.view;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -32,10 +34,17 @@ public class MainActivity extends AppCompatActivity {
     private LessonManager lessonManager;
     private ProgressBar progress;
     private TextView progressText;
+    private SharedPreferences sharedPref;
+    private String currentTheme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.sharedPref = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        this.currentTheme = sharedPref.getString("theme", "light");
+
+        setAppTheme(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -77,7 +86,8 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
         }
 
         if(id == R.id.actionDeleteAll){
@@ -209,7 +219,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        updatePrint();
+        if(sharedPref.getString("theme","light") != currentTheme)
+            recreate();
+        else
+            updatePrint();
+    }
+
+    static public void setAppTheme(Context c) {
+        switch (c.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getString("theme", "light")) {
+            case "light":
+                c.setTheme(R.style.AppTheme_Light);
+                break;
+            case "dark":
+                c.setTheme(R.style.AppTheme_Dark);
+                break;
+            default:
+                break;
+        }
     }
 
 }

@@ -2,22 +2,37 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/colorBack</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar.FullScreen">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
+    </style>
+    
+    <style name="AppTheme.Dark" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccentDark</item>
+        <item name="android:windowBackground">@color/colorBackDark</item>
+        <item name="colorMiddle">@color/colorMiddleDark</item>
+        <item name="colorFinish">@color/colorFinishDark</item>
+        <item name="colorBack">@color/colorBackDark</item>
+        <item name="colorUE">@color/colorUEDark</item>
+        <item name="colorSubject">@color/colorSubjectDark</item>
+        <item name="colorLesson">@color/colorLessonDark</item>
+        <item name="colorTextOnBack">@color/colorTextOnBackDark</item>
+        <item name="colorBackProgress">@color/colorBackProgressDark</item>
+    </style>
+
+    <style name="AppTheme.Light" parent="AppTheme">
+        <item name="colorPrimary">@color/colorPrimaryLight</item>
+        <item name="colorAccent">@color/colorAccentLight</item>
+        <item name="android:windowBackground">@color/colorBackLight</item>
+        <item name="colorMiddle">@color/colorMiddleLight</item>
+        <item name="colorFinish">@color/colorFinishLight</item>
+        <item name="colorBack">@color/colorBackLight</item>
+        <item name="colorUE">@color/colorUELight</item>
+        <item name="colorSubject">@color/colorSubjectLight</item>
+        <item name="colorLesson">@color/colorLessonLight</item>
+        <item name="colorTextOnBack">@color/colorTextOnBackLight</item>
+        <item name="colorBackProgress">@color/colorBackProgressLight</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

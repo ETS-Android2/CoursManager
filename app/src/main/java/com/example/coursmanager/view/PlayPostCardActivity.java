@@ -22,6 +22,7 @@ public class PlayPostCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.setAppTheme(this);
         setContentView(R.layout.activity_play_post_card);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -31,10 +32,23 @@ public class PlayPostCardActivity extends AppCompatActivity {
         postCardManager.open();
         this.c = postCardManager.getAllPostCardLesson(intent.getLongExtra("idLesson", 0));
         this.tPostCard = findViewById(R.id.tPostCard);
-        this.recto = true;
 
-        c.moveToFirst();
-        this.tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+        //Move to good position of the cursor
+        if(savedInstanceState == null) {
+            c.moveToFirst();
+            this.recto = true;
+        }else {
+            c.moveToPosition(savedInstanceState.getInt("position", 0));
+            this.recto = savedInstanceState.getBoolean("recto", true);
+        }
+
+        //Put the good side of the post-card
+        if(recto)
+            this.tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+        else{
+            tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
+            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
+        }
 
         FloatingActionButton fabPrevious = findViewById(R.id.fabPrevious);
         fabPrevious.setOnClickListener(new View.OnClickListener() {
@@ -53,11 +67,10 @@ public class PlayPostCardActivity extends AppCompatActivity {
         fabReplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!recto) {
-                    tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
-                    tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
-                    recto = true;
-                }
+                c.moveToFirst();
+                tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
+                tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+                recto = true;
             }
         });
 
@@ -77,11 +90,24 @@ public class PlayPostCardActivity extends AppCompatActivity {
         tPostCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
-                tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
-                recto = false;
+                if(recto) {
+                    tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
+                    tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
+                    recto = false;
+                }else{
+                    tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
+                    tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+                    recto = true;
+                }
             }
         });
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putInt("position", c.getPosition());
+        outState.putBoolean("recto", recto);
     }
 
 }

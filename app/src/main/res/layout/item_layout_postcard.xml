@@ -6,7 +6,6 @@
     android:layout_width="125dp"
     android:layout_height="125dp">
 
-
     <TextView
         android:id="@+id/textIdPost"
         android:layout_width="wrap_content"

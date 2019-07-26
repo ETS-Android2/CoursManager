@@ -32,6 +32,7 @@ public class LessonActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MainActivity.setAppTheme(this);
         setContentView(R.layout.activity_lesson);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

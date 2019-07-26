@@ -15,7 +15,7 @@
         android:clickable="true"
         android:layout_gravity="bottom|start"
         android:layout_margin="15dp"
-        app:backgroundTint="#000"
+        app:backgroundTint="?attr/colorPrimary"
         app:srcCompat="@android:drawable/ic_media_previous"
         android:focusable="true" />
 
@@ -26,7 +26,7 @@
         android:clickable="true"
         android:layout_gravity="bottom|center"
         android:layout_margin="15dp"
-        app:backgroundTint="#000"
+        app:backgroundTint="?attr/colorPrimary"
         app:srcCompat="@drawable/replay_white"
         android:focusable="true" />
 
@@ -37,7 +37,7 @@
         android:clickable="true"
         android:layout_gravity="bottom|end"
         android:layout_margin="15dp"
-        app:backgroundTint="#000"
+        app:backgroundTint="?attr/colorPrimary"
         app:srcCompat="@android:drawable/ic_media_next"
         android:focusable="true" />
 

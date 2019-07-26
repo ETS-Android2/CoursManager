@@ -8,38 +8,33 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.Light">
+        <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/title_activity_settings"/>
         <activity
             android:name=".view.ShufflePostCardActivity"
-            android:label="@string/title_activity_shuffle_post_card"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_shuffle_post_card" />
         <activity
             android:name=".view.LessonDetailPostActivity"
             android:label="@string/title_activity_lesson_detail_post"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.PlayPostCardActivity"
-            android:label="@string/title_activity_play_post_card"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+            android:label="@string/title_activity_play_post_card" />
         <activity
             android:name=".view.EditionPostCardActivity"
             android:label="@string/title_activity_edition_post_card"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".view.LessonActivity"
-            android:label="@string/title_activity_lesson"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+            android:label="@string/title_activity_lesson" />
         <activity
             android:name=".view.SubjectActivity"
-            android:label="@string/title_activity_subject"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen" />
+            android:label="@string/title_activity_subject" />
         <activity
             android:name=".view.MainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar.FullScreen">
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

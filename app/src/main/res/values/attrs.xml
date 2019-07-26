@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorMiddle" format="reference"/>
+    <attr name="colorFinish" format="reference"/>
+    <attr name="colorBack" format="reference"/>
+    <attr name="colorUE" format="reference"/>
+    <attr name="colorSubject" format="reference"/>
+    <attr name="colorLesson" format="reference"/>
+    <attr name="colorTextOnBack" format="reference"/>
+    <attr name="colorBackProgress" format="reference"/>
+</resources>

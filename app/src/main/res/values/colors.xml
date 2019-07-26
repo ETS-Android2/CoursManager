@@ -1,12 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2C2C2C</color>
-    <color name="colorPrimaryDark">#002766</color>
-    <color name="colorAccent">#B20000</color>
-    <color name="colorMiddle">#faa005</color>
-    <color name="colorFinish">#06DA43</color>
-    <color name="colorBack">#000</color>
-    <color name="colorUE">#7a78eb</color>
-    <color name="colorSubject">#ffd98c</color>
-    <color name="colorLesson">#ff8c92</color>
+    <color name="colorPrimaryDark">#2C2C2C</color>
+    <color name="colorAccentDark">#B20000</color>
+    <color name="colorMiddleDark">#faa005</color>
+    <color name="colorFinishDark">#06DA43</color>
+    <color name="colorBackDark">#000</color>
+    <color name="colorUEDark">#7a78eb</color>
+    <color name="colorSubjectDark">#ffd98c</color>
+    <color name="colorLessonDark">#ff8c92</color>
+    <color name="colorTextOnBackDark">#fff</color>
+    <color name="colorBackProgressDark">#fff</color>
+
+    <color name="colorPrimaryLight">#035CFE</color>
+    <color name="colorAccentLight">#B20000</color>
+    <color name="colorMiddleLight">#faa005</color>
+    <color name="colorFinishLight">#06DA43</color>
+    <color name="colorBackLight">#fff</color>
+    <color name="colorUELight">#7a78eb</color>
+    <color name="colorSubjectLight">#ffd98c</color>
+    <color name="colorLessonLight">#ff8c92</color>
+    <color name="colorTextOnBackLight">#000</color>
+    <color name="colorBackProgressLight">#999999</color>
+
 </resources>
