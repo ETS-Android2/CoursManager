@@ -86,12 +86,4 @@ public class PostCardManager {
         return db.rawQuery("SELECT * FROM "+TABLE_NAME_POSTCARD+" WHERE "+KEY_IDLESSON_POSTCARD+" = "+idLesson, null);
     }
 
-    /*public int getNumberPostCards(){
-        return mySQLiteBase.getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_NAME_POSTCARD, null).getCount();
-    }
-
-    public int getNumberPostCardsFinished(){
-        return mySQLiteBase.getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_NAME_POSTCARD+" WHERE "+KEY_FINISH_POSTCARD+" = "+1, null).getCount();
-    }*/
-
 }

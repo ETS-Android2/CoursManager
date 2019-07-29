@@ -107,12 +107,14 @@ public class LessonManager {
         return db.rawQuery("SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_IDSUBJECT_LESSON+" = "+idSubject, null);
     }
 
-    public int getNumberLessons(){
-        return mySQLiteBase.getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_NAME_LESSON, null).getCount();
+    public int getNumberLessonsInFolder(long idFolder){
+        String requete = "SELECT * FROM "+UEManager.TABLE_NAME_UE+" INNER JOIN "+SubjectManager.TABLE_NAME_SUBJECT+" ON "+UEManager.TABLE_NAME_UE+"."+UEManager.KEY_ID_UE+" = "+SubjectManager.TABLE_NAME_SUBJECT+"."+SubjectManager.KEY_IDUE_SUBJECT+" INNER JOIN "+LessonManager.TABLE_NAME_LESSON+" ON "+SubjectManager.TABLE_NAME_SUBJECT+"."+SubjectManager.KEY_ID_SUBJECT+" = "+LessonManager.TABLE_NAME_LESSON+"."+LessonManager.KEY_IDSUBJECT_LESSON+" WHERE "+UEManager.TABLE_NAME_UE+"."+UEManager.KEY_IDFOLDER_UE+" = "+idFolder;
+        return mySQLiteBase.getReadableDatabase().rawQuery(requete, null).getCount();
     }
 
-    public int getNumberLessonsFinished(){
-        return mySQLiteBase.getReadableDatabase().rawQuery("SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_FINISH_LESSON+" = "+1, null).getCount();
+    public int getNumberLessonsFinishedInFolder(long idFolder){
+        String requete = "SELECT * FROM "+UEManager.TABLE_NAME_UE+" INNER JOIN "+SubjectManager.TABLE_NAME_SUBJECT+" ON "+UEManager.TABLE_NAME_UE+"."+UEManager.KEY_ID_UE+" = "+SubjectManager.TABLE_NAME_SUBJECT+"."+SubjectManager.KEY_IDUE_SUBJECT+" INNER JOIN "+LessonManager.TABLE_NAME_LESSON+" ON "+SubjectManager.TABLE_NAME_SUBJECT+"."+SubjectManager.KEY_ID_SUBJECT+" = "+LessonManager.TABLE_NAME_LESSON+"."+LessonManager.KEY_IDSUBJECT_LESSON+" WHERE "+UEManager.TABLE_NAME_UE+"."+UEManager.KEY_IDFOLDER_UE+" = "+idFolder;
+        return mySQLiteBase.getReadableDatabase().rawQuery(requete + " AND "+LessonManager.TABLE_NAME_LESSON+"."+LessonManager.KEY_FINISH_LESSON+" = "+1, null).getCount();
     }
 
 }

@@ -22,7 +22,7 @@ public class SubjectManager {
             " "+KEY_NAME_SUBJECT+" TEXT,"+
             " "+KEY_IDUE_SUBJECT+" INTEGER,"+
             " "+KEY_FINISH_SUBJECT+" NUMERIC,"+
-            " FOREIGN KEY("+KEY_IDUE_SUBJECT+") REFERENCES "+UEManager.TABLE_NAME+"("+UEManager.KEY_ID_UE+")"+" ON DELETE CASCADE"+
+            " FOREIGN KEY("+KEY_IDUE_SUBJECT+") REFERENCES "+UEManager.TABLE_NAME_UE+"("+UEManager.KEY_ID_UE+")"+" ON DELETE CASCADE"+
             ");";
     private MySQLite mySQLiteBase;
     private SQLiteDatabase db;

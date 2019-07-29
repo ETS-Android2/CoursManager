@@ -34,7 +34,7 @@ public class LessonDetailPostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MainActivity.setAppTheme(this);
+        FolderActivity.setAppTheme(this);
         setContentView(R.layout.activity_lesson_detail_post);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

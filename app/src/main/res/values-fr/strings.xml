@@ -33,4 +33,8 @@
     <string name="textGoal">Objectif fixé</string>
     <string name="noPostCard">Pas de post-card disponible</string>
     <string name="title_activity_settings">Paramètres</string>
+    <string name="folderAddGood">Dossier créé</string>
+    <string name="folderAddError">Erreur lors de l\'ajout du dossier</string>
+    <string name="defaultNameFolder">Nom du dossier</string>
+    <string name="titleAddFolder">Ajouter un nouveau dossier</string>
 </resources>
