@@ -134,7 +134,8 @@ public class FolderActivity extends AppCompatActivity {
         myGrid.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                askToDeleteFolder(id);
+                CustomLongClickDialog cd = new CustomLongClickDialog(FolderActivity.this, id, 1);
+                cd.show();
                 return true;
             }
         });
@@ -194,6 +195,12 @@ public class FolderActivity extends AppCompatActivity {
                     }
                 })
                 .setCancelable(false).show();
+    }
+
+    @Override
+    public void onBackPressed(){
+        CustomExitDialog d = new CustomExitDialog(this);
+        d.show();
     }
 
     @Override

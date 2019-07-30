@@ -9,7 +9,7 @@ import android.util.Log;
 import com.example.coursmanager.model.UE;
 import com.example.coursmanager.tools.MySQLite;
 
-public class UEManager {
+public class UEManager extends Manager {
 
     protected static final String TABLE_NAME_UE = "ue";
     public static final String KEY_ID_UE = "_id";
@@ -24,19 +24,8 @@ public class UEManager {
             " FOREIGN KEY("+KEY_IDFOLDER_UE+") REFERENCES "+FolderManager.TABLE_NAME_FOLDER+"("+FolderManager.KEY_ID_FOLDER+")"+" ON DELETE CASCADE"+
             ");";
     //CREATE TABLE t1(a INT, b TEXT, c REAL);
-    private MySQLite mySQLiteBase;
-    private SQLiteDatabase db;
-
     public UEManager(Context context){
-        mySQLiteBase = MySQLite.getInstance(context);
-    }
-
-    public void open(){
-        db = mySQLiteBase.getWritableDatabase();
-    }
-
-    public void close(){
-        db.close();
+        super(context);
     }
 
     // Return the id of new insert

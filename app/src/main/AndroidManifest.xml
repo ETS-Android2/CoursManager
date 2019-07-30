@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme.Light">
         <activity
             android:name=".view.SettingsActivity"
-            android:label="@string/title_activity_settings"/>
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".view.ShufflePostCardActivity"
             android:label="@string/title_activity_shuffle_post_card" />
@@ -26,12 +26,9 @@
             android:name=".view.EditionPostCardActivity"
             android:label="@string/title_activity_edition_post_card"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".view.LessonActivity" />
-        <activity
-            android:name=".view.SubjectActivity" />
-        <activity
-            android:name=".view.UEActivity" />
+        <activity android:name=".view.LessonActivity" />
+        <activity android:name=".view.SubjectActivity" />
+        <activity android:name=".view.UEActivity" />
         <activity
             android:name=".view.FolderActivity"
             android:label="@string/app_name">

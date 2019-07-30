@@ -3,12 +3,10 @@ package com.example.coursmanager.controller;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
 import com.example.coursmanager.model.Folder;
-import com.example.coursmanager.tools.MySQLite;
 
-public class FolderManager {
+public class FolderManager extends Manager {
 
     protected static final String TABLE_NAME_FOLDER = "folder";
     public static final String KEY_ID_FOLDER = "_id";
@@ -19,21 +17,11 @@ public class FolderManager {
             " "+KEY_NAME_FOLDER+" TEXT,"+
             " "+KEY_PERCENTAGE_FOLDER+" REAL"+
             ");";
-    private MySQLite mySQLiteBase;
-    private SQLiteDatabase db;
 
     public FolderManager(Context context){
-        mySQLiteBase = MySQLite.getInstance(context);
+        super(context);
     }
 
-    public void open(){
-        db = mySQLiteBase.getWritableDatabase();
-    }
-
-    public void close(){
-        db.close();
-    }
-    
     public long addFolder(Folder aFolder){
         ContentValues values = new ContentValues();
         values.put(KEY_NAME_FOLDER, aFolder.getNameFolder());
@@ -76,6 +64,12 @@ public class FolderManager {
 
     public void deleteAllFolder(){
         db.execSQL("DELETE FROM "+TABLE_NAME_FOLDER);
+    }
+
+    public void renameAFolder(String newName, long aId){
+        ContentValues value = new ContentValues();
+        value.put(KEY_NAME_FOLDER, newName);
+        db.update(TABLE_NAME_FOLDER, value, KEY_ID_FOLDER + "= ?", new String[] {aId+""});
     }
 
 }

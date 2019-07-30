@@ -34,7 +34,9 @@
     <string name="navigationPost" translatable="false">Post-Cards</string>
     <string name="navigationDetails">Details</string>
     <string name="textGoal">Details</string>
-    <string name="noPostCard">No post-card avaible</string>
+    <string name="noPostCard">No post-card available</string>
+    <string name="exit">Do you really want to exit ?</string>
+    <string name="rename">Rename</string>
 
     <string name="title_activity_subject" translatable="false">SubjectActivity</string>
     <string name="title_activity_lesson" translatable="false">LessonActivity</string>

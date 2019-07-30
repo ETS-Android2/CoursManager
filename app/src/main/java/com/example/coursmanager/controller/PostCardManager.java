@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.coursmanager.model.PostCard;
 import com.example.coursmanager.tools.MySQLite;
 
-public class PostCardManager {
+public class PostCardManager extends Manager {
 
     protected static final String TABLE_NAME_POSTCARD = "postcard";
     public static final String KEY_ID_POSTCARD = "_id";
@@ -25,19 +25,8 @@ public class PostCardManager {
             " "+KEY_IDLESSON_POSTCARD+" INTEGER,"+
             " FOREIGN KEY("+KEY_IDLESSON_POSTCARD+") REFERENCES "+LessonManager.TABLE_NAME_LESSON+"("+LessonManager.KEY_ID_LESSON+")"+" ON DELETE CASCADE"+
             ");";
-    private MySQLite mySQLiteBase;
-    private SQLiteDatabase db;
-
     public PostCardManager(Context context){
-        mySQLiteBase = MySQLite.getInstance(context);
-    }
-
-    public void open(){
-        db = mySQLiteBase.getWritableDatabase();
-    }
-
-    public void close(){
-        db.close();
+        super(context);
     }
 
     public long addPostCard(PostCard aPostCard){

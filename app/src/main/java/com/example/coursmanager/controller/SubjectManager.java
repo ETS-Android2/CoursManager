@@ -9,7 +9,7 @@ import android.util.Log;
 import com.example.coursmanager.model.Subject;
 import com.example.coursmanager.tools.MySQLite;
 
-public class SubjectManager {
+public class SubjectManager extends Manager {
 
     protected static final String TABLE_NAME_SUBJECT = "subject";
     public static final String KEY_ID_SUBJECT = "_id";
@@ -24,19 +24,9 @@ public class SubjectManager {
             " "+KEY_FINISH_SUBJECT+" NUMERIC,"+
             " FOREIGN KEY("+KEY_IDUE_SUBJECT+") REFERENCES "+UEManager.TABLE_NAME_UE+"("+UEManager.KEY_ID_UE+")"+" ON DELETE CASCADE"+
             ");";
-    private MySQLite mySQLiteBase;
-    private SQLiteDatabase db;
 
     public SubjectManager(Context context){
-        mySQLiteBase = MySQLite.getInstance(context);
-    }
-
-    public void open(){
-        db = mySQLiteBase.getWritableDatabase();
-    }
-
-    public void close(){
-        db.close();
+        super(context);
     }
 
     // Return the id of new insert

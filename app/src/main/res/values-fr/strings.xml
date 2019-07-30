@@ -37,4 +37,6 @@
     <string name="folderAddError">Erreur lors de l\'ajout du dossier</string>
     <string name="defaultNameFolder">Nom du dossier</string>
     <string name="titleAddFolder">Ajouter un nouveau dossier</string>
+    <string name="exit">Voulez-vous vraiment quitter ?</string>
+    <string name="rename">Renommer</string>
 </resources>

@@ -9,7 +9,7 @@ import android.util.Log;
 import com.example.coursmanager.model.Lesson;
 import com.example.coursmanager.tools.MySQLite;
 
-public class LessonManager {
+public class LessonManager extends Manager {
 
     protected static final String TABLE_NAME_LESSON = "lesson";
     public static final String KEY_ID_LESSON = "_id";
@@ -34,19 +34,9 @@ public class LessonManager {
             " "+KEY_NB_READ_LESSON+" INTEGER,"+
             " FOREIGN KEY("+KEY_IDSUBJECT_LESSON+") REFERENCES "+SubjectManager.TABLE_NAME_SUBJECT+"("+SubjectManager.KEY_ID_SUBJECT+")"+" ON DELETE CASCADE"+
             ");";
-    private MySQLite mySQLiteBase;
-    private SQLiteDatabase db;
 
     public LessonManager(Context context){
-        mySQLiteBase = MySQLite.getInstance(context);
-    }
-
-    public void open(){
-        db = mySQLiteBase.getWritableDatabase();
-    }
-
-    public void close(){
-        db.close();
+        super(context);
     }
 
     public long addLesson(Lesson aLesson){
