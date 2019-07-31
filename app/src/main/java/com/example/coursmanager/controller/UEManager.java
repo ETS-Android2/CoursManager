@@ -76,8 +76,19 @@ public class UEManager extends Manager {
         return (int) Math.round(((float)nbFinished/(float)nbTot)*100);
     }
 
-    public Cursor getAllUEFolder(long idFolder){
-        return db.rawQuery("SELECT * FROM "+TABLE_NAME_UE+" WHERE "+KEY_IDFOLDER_UE+" = "+idFolder, null);
+    public Cursor getAllUEFolder(long idFolder, int order){
+        String request = "SELECT * FROM "+TABLE_NAME_UE+" WHERE "+KEY_IDFOLDER_UE+" = "+idFolder;
+        //Order 1 is by name ascendant, 2 by name descendant, 3 by creation date (default)
+        switch (order){
+            case 1:
+                return db.rawQuery(request, null);
+            case 2:
+                return db.rawQuery(request+" ORDER BY "+KEY_NAME_UE, null);
+            case 3:
+                return db.rawQuery(request+" ORDER BY "+KEY_NAME_UE+" DESC ", null);
+            default:
+                return db.rawQuery(request, null);
+        }
     }
 
     public void deleteAllUEFolder(long idFolder){

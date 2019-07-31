@@ -23,7 +23,7 @@ public class CustomLongClickDialog extends Dialog implements View.OnClickListene
     private long id;
     private Manager manager;
     private Activity a;
-    private int type; //Type will be usefull for me to know if the Dialog is called by FolderManager(1), UEManager(2), SubjectManager(3) or LessonManager(4)
+    private int type; //Type will be useful for me to know if the Dialog is called by FolderManager(1), UEManager(2), SubjectManager(3) or LessonManager(4)
 
     CustomLongClickDialog(@NonNull Activity a, long id, int t) {
         super(a);
@@ -93,6 +93,7 @@ public class CustomLongClickDialog extends Dialog implements View.OnClickListene
                 }
                 dismiss();
                 break;
+
             case R.id.btnRename:
                 switch (type){
                     case 1:
@@ -116,6 +117,7 @@ public class CustomLongClickDialog extends Dialog implements View.OnClickListene
                 }
                 dismiss();
                 break;
+
             default:
                 break;
         }

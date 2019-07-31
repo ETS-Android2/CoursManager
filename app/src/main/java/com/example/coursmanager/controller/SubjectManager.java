@@ -76,8 +76,23 @@ public class SubjectManager extends Manager {
         return (int) Math.round(((float)nbFinished/(float)nbTot)*100);
     }
 
-    public Cursor getAllSubjectUE(long idUE){
-        return db.rawQuery("SELECT * FROM "+TABLE_NAME_SUBJECT+" WHERE "+KEY_IDUE_SUBJECT+" = "+idUE, null);
+    public Cursor getAllSubjectUE(long idUE, int order){
+        String request = "SELECT * FROM "+TABLE_NAME_SUBJECT+" WHERE "+KEY_IDUE_SUBJECT+" = "+idUE;
+        //Order 1 is by name ascendant, 2 by name descendant, 3 by creation date (default)
+        switch (order){
+            case 1:
+                return db.rawQuery(request, null);
+            case 2:
+                return db.rawQuery(request+" ORDER BY "+KEY_NAME_SUBJECT, null);
+            case 3:
+                return db.rawQuery(request+" ORDER BY "+KEY_NAME_SUBJECT+" DESC ", null);
+            default:
+                return db.rawQuery(request, null);
+        }
+    }
+
+    public void deleteAllSubjectUE(long idUE){
+        db.execSQL("DELETE FROM "+TABLE_NAME_SUBJECT+" WHERE "+KEY_IDUE_SUBJECT+" = "+idUE);
     }
 
     @Override

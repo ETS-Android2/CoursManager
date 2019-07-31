@@ -1,5 +1,6 @@
 package com.example.coursmanager.view;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +11,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -29,6 +32,7 @@ public class SubjectActivity extends AppCompatActivity {
 
     private SubjectManager subjectManager;
     protected long idUE;
+    public int order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +42,10 @@ public class SubjectActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        subjectManager = new SubjectManager(this);
-        subjectManager.open();
+        this.order = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getInt("orderSubject", 1);
+
+        this.subjectManager = new SubjectManager(this);
+        this.subjectManager.open();
 
         Intent intent = getIntent();
         setTitle(intent.getStringExtra("ueName"));
@@ -56,9 +62,49 @@ public class SubjectActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_general, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.actionDeleteAll:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.deleteAll)
+                        .setMessage(R.string.confirmDeleteAll)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                subjectManager.deleteAllSubjectUE(idUE);
+                                updatePrint();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.action_order:
+                CustomOrderDialog cod = new CustomOrderDialog(SubjectActivity.this);
+                cod.show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     // Update the listView of UEs
     public void updatePrint(){
-        Cursor c = subjectManager.getAllSubjectUE(this.idUE);
+        Cursor c = subjectManager.getAllSubjectUE(idUE, order);
         String[] fromFieldNames = new String[] {subjectManager.KEY_NAME_SUBJECT, subjectManager.KEY_FINISH_SUBJECT};
         int[] toViewIDs = new int[] {R.id.textNameSubject, R.id.progressSubject};
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_subject, c, fromFieldNames, toViewIDs, 0);

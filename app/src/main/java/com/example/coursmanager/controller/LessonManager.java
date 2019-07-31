@@ -93,8 +93,19 @@ public class LessonManager extends Manager {
         return l;
     }
 
-    public Cursor getAllLessonSubject(long idSubject){
-        return db.rawQuery("SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_IDSUBJECT_LESSON+" = "+idSubject, null);
+    public Cursor getAllLessonSubject(long idSubject, int order){
+        String request = "SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_IDSUBJECT_LESSON+" = "+idSubject;
+        //Order 1 is by name ascendant, 2 by name descendant, 3 by creation date (default)
+        switch (order){
+            case 1:
+                return db.rawQuery(request, null);
+            case 2:
+                return db.rawQuery(request+" ORDER BY "+KEY_NAME_LESSON, null);
+            case 3:
+                return db.rawQuery(request+" ORDER BY "+KEY_NAME_LESSON+" DESC ", null);
+            default:
+                return db.rawQuery(request, null);
+        }
     }
 
     public int getNumberLessonsInFolder(long idFolder){
@@ -112,6 +123,10 @@ public class LessonManager extends Manager {
         ContentValues value = new ContentValues();
         value.put(KEY_NAME_LESSON, newName);
         db.update(TABLE_NAME_LESSON, value, KEY_ID_LESSON + "= ?", new String[] {aId+""});
+    }
+
+    public void deleteAllLessonSubject(long idSubject){
+        db.execSQL("DELETE FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_IDSUBJECT_LESSON+" = "+idSubject);
     }
 
 }

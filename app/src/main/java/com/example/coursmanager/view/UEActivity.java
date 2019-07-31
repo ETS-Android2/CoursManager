@@ -1,5 +1,6 @@
 package com.example.coursmanager.view;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -36,6 +37,7 @@ public class UEActivity extends AppCompatActivity {
     private TextView progressText;
     private long idFolder;
     private Folder currentFolder;
+    public int order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class UEActivity extends AppCompatActivity {
         setContentView(R.layout.activity_ue);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        this.order = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE).getInt("orderUE", 1);
 
         // Create and open the ueManager
         this.ueManager = new UEManager(this);
@@ -86,21 +90,27 @@ public class UEActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if(id == R.id.actionDeleteAll){
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.deleteAll)
-                    .setMessage(R.string.confirmDeleteAll)
-                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            ueManager.deleteAllUEFolder(idFolder);
-                            updatePrint();
-                        }
-                    })
-                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                        }
-                    })
-                    .show();
+        switch (id){
+            case R.id.actionDeleteAll:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.deleteAll)
+                        .setMessage(R.string.confirmDeleteAll)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                ueManager.deleteAllUEFolder(idFolder);
+                                updatePrint();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                        .show();
+                break;
+            case R.id.action_order:
+                CustomOrderDialog cod = new CustomOrderDialog(UEActivity.this);
+                cod.show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -108,7 +118,7 @@ public class UEActivity extends AppCompatActivity {
 
     // Update the listView of UEs
     public void updatePrint(){
-        Cursor c = ueManager.getAllUEFolder(idFolder);
+        Cursor c = ueManager.getAllUEFolder(idFolder, order);
         String[] fromFieldNames = new String[] {ueManager.KEY_NAME_UE, ueManager.KEY_PERCENTAGE_UE};
         int[] toViewIDs = new int[] {R.id.textNameUE, R.id.progressUE};
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_ue, c, fromFieldNames, toViewIDs, 0);

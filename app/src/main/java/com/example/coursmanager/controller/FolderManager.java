@@ -59,16 +59,17 @@ public class FolderManager extends Manager {
     }
 
     public Cursor getAllFolder(int order){
+        String request = "SELECT * FROM "+TABLE_NAME_FOLDER;
         //Order 1 is by name ascendant, 2 by name descendant, 3 by creation date (default)
         switch (order){
             case 1:
-                return db.rawQuery("SELECT * FROM "+TABLE_NAME_FOLDER, null);
+                return db.rawQuery(request, null);
             case 2:
-                return db.rawQuery("SELECT * FROM "+TABLE_NAME_FOLDER+" ORDER BY "+KEY_NAME_FOLDER, null);
+                return db.rawQuery(request+" ORDER BY "+KEY_NAME_FOLDER, null);
             case 3:
-                return db.rawQuery("SELECT * FROM "+TABLE_NAME_FOLDER+" ORDER BY "+KEY_NAME_FOLDER+" DESC ", null);
+                return db.rawQuery(request+" ORDER BY "+KEY_NAME_FOLDER+" DESC ", null);
             default:
-                return db.rawQuery("SELECT * FROM "+TABLE_NAME_FOLDER, null);
+                return db.rawQuery(request, null);
         }
     }
 
