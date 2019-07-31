@@ -37,6 +37,10 @@
     <string name="noPostCard">No post-card available</string>
     <string name="exit">Do you really want to exit ?</string>
     <string name="rename">Rename</string>
+    <string name="orderBy">Order by</string>
+    <string name="dateCreation">Creation date</string>
+    <string name="nameAsc">Ascending name</string>
+    <string name="nameDesc">Descending name</string>
 
     <string name="title_activity_subject" translatable="false">SubjectActivity</string>
     <string name="title_activity_lesson" translatable="false">LessonActivity</string>

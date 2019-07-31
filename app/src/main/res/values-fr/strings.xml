@@ -39,4 +39,8 @@
     <string name="titleAddFolder">Ajouter un nouveau dossier</string>
     <string name="exit">Voulez-vous vraiment quitter ?</string>
     <string name="rename">Renommer</string>
+    <string name="orderBy">Trié par</string>
+    <string name="dateCreation">Date de création</string>
+    <string name="nameAsc">Nom ascendant</string>
+    <string name="nameDesc">Nom descendant</string>
 </resources>

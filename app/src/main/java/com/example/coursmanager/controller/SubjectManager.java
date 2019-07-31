@@ -80,4 +80,11 @@ public class SubjectManager extends Manager {
         return db.rawQuery("SELECT * FROM "+TABLE_NAME_SUBJECT+" WHERE "+KEY_IDUE_SUBJECT+" = "+idUE, null);
     }
 
+    @Override
+    public void rename(String newName, long aId){
+        ContentValues value = new ContentValues();
+        value.put(KEY_NAME_SUBJECT, newName);
+        db.update(TABLE_NAME_SUBJECT, value, KEY_ID_SUBJECT + "= ?", new String[] {aId+""});
+    }
+
 }

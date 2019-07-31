@@ -82,7 +82,8 @@ public class SubjectActivity extends AppCompatActivity {
         myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                askToDeleteSubject(id);
+                CustomLongClickDialog cd = new CustomLongClickDialog(SubjectActivity.this, id, 3);
+                cd.show();
                 return true;
             }
         });

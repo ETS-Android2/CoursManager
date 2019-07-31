@@ -1,9 +1,7 @@
 package com.example.coursmanager.view;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -77,7 +75,7 @@ public class UEActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_ue, menu);
+        getMenuInflater().inflate(R.menu.menu_general, menu);
         return true;
     }
 
@@ -134,7 +132,8 @@ public class UEActivity extends AppCompatActivity {
         myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                askToDeleteUE(id);
+                CustomLongClickDialog cd = new CustomLongClickDialog(UEActivity.this, id, 2);
+                cd.show();
                 return true;
             }
         });

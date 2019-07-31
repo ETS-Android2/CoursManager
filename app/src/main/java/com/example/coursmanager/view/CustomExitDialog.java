@@ -13,9 +13,8 @@ import com.example.coursmanager.R;
 public class CustomExitDialog extends Dialog implements View.OnClickListener {
 
     private Activity a;
-    private Button yes, no;
 
-    public CustomExitDialog(@NonNull Activity activity) {
+    CustomExitDialog(@NonNull Activity activity) {
         super(activity);
         this.a = activity;
     }
@@ -26,8 +25,8 @@ public class CustomExitDialog extends Dialog implements View.OnClickListener {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.custom_exit_dialog);
 
-        yes = findViewById(R.id.btn_yes);
-        no = findViewById(R.id.btn_no);
+        Button yes = findViewById(R.id.btn_yes);
+        Button no = findViewById(R.id.btn_no);
 
         yes.setOnClickListener(this);
         no.setOnClickListener(this);

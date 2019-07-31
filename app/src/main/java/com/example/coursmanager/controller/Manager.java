@@ -21,4 +21,6 @@ public class Manager {
     public void close(){
         db.close();
     }
+
+    public void rename(String newName, long aId){};
 }

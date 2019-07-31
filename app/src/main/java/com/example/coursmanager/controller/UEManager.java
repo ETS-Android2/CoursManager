@@ -84,4 +84,11 @@ public class UEManager extends Manager {
         db.execSQL("DELETE FROM "+TABLE_NAME_UE+" WHERE "+KEY_IDFOLDER_UE+" = "+idFolder);
     }
 
+    @Override
+    public void rename(String newName, long aId){
+        ContentValues value = new ContentValues();
+        value.put(KEY_NAME_UE, newName);
+        db.update(TABLE_NAME_UE, value, KEY_ID_UE + "= ?", new String[] {aId+""});
+    }
+
 }

@@ -83,7 +83,8 @@ public class LessonActivity extends AppCompatActivity {
         myList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                askToDeleteLesson(id);
+                CustomLongClickDialog cd = new CustomLongClickDialog(LessonActivity.this, id, 4);
+                cd.show();
                 return true;
             }
         });

@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +28,9 @@ import com.example.coursmanager.model.Folder;
 public class FolderActivity extends AppCompatActivity {
 
     private FolderManager folderManager;
-    private SharedPreferences sharedPref;
+    public SharedPreferences sharedPref;
     private String currentTheme;
+    public int order;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,9 @@ public class FolderActivity extends AppCompatActivity {
 
         this.sharedPref = this.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         this.currentTheme = sharedPref.getString("theme", "light");
+        this.order = sharedPref.getInt("orderFolder", 1);
+
+        Log.d("ORDER", String.valueOf(order));
 
         setAppTheme(this);
         setContentView(R.layout.activity_folder);
@@ -71,26 +76,33 @@ public class FolderActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(intent);
-        }
+        switch(id) {
+            case R.id.action_settings:
+                Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity(intent);
+                break;
 
-        if(id == R.id.actionDeleteAll){
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.deleteAll)
-                    .setMessage(R.string.confirmDeleteAll)
-                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                            folderManager.deleteAllFolder();
-                            updatePrint();
-                        }
-                    })
-                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int whichButton) {
-                        }
-                    })
-                    .show();
+            case R.id.actionDeleteAll:
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.deleteAll)
+                        .setMessage(R.string.confirmDeleteAll)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                folderManager.deleteAllFolder();
+                                updatePrint();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                        .show();
+                break;
+
+            case R.id.action_order:
+                CustomOrderDialog cod = new CustomOrderDialog(FolderActivity.this);
+                cod.show();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
@@ -110,7 +122,7 @@ public class FolderActivity extends AppCompatActivity {
     }
 
     public void updatePrint(){
-        Cursor c = folderManager.getAllFolder();
+        Cursor c = folderManager.getAllFolder(order);
         String[] fromFieldNames = new String[] {FolderManager.KEY_NAME_FOLDER, FolderManager.KEY_PERCENTAGE_FOLDER};
         int[] toViewIDs = new int[] {R.id.textNameFolder, R.id.textPercentFolder};
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_folder, c, fromFieldNames, toViewIDs, 0);

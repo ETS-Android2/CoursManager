@@ -12,19 +12,20 @@ import android.widget.TextView;
 
 import com.example.coursmanager.R;
 import com.example.coursmanager.controller.FolderManager;
+import com.example.coursmanager.controller.LessonManager;
 import com.example.coursmanager.controller.Manager;
+import com.example.coursmanager.controller.SubjectManager;
+import com.example.coursmanager.controller.UEManager;
 
 public class CustomLongClickDialog extends Dialog implements View.OnClickListener {
 
     private EditText name;
-    private Button delete;
-    private TextView rename;
     private long id;
     private Manager manager;
     private Activity a;
     private int type; //Type will be usefull for me to know if the Dialog is called by FolderManager(1), UEManager(2), SubjectManager(3) or LessonManager(4)
 
-    public CustomLongClickDialog(@NonNull Activity a, long id, int t) {
+    CustomLongClickDialog(@NonNull Activity a, long id, int t) {
         super(a);
         this.a = a;
         this.id = id;
@@ -38,8 +39,8 @@ public class CustomLongClickDialog extends Dialog implements View.OnClickListene
         setContentView(R.layout.custom_long_click_dialog);
 
         name = findViewById(R.id.editRename);
-        delete = findViewById(R.id.btnDelete);
-        rename = findViewById(R.id.btnRename);
+        Button delete = findViewById(R.id.btnDelete);
+        TextView rename = findViewById(R.id.btnRename);
 
         delete.setOnClickListener(this);
         rename.setOnClickListener(this);
@@ -51,19 +52,19 @@ public class CustomLongClickDialog extends Dialog implements View.OnClickListene
                 name.setText(((FolderManager) manager).getFolder(id).getNameFolder());
                 break;
             case 2:
-                manager = new FolderManager(getContext());
+                manager = new UEManager(getContext());
                 manager.open();
-                name.setText(((FolderManager) manager).getFolder(id).getNameFolder());
+                name.setText(((UEManager) manager).getUE(id).getNameUE());
                 break;
             case 3:
-                manager = new FolderManager(getContext());
+                manager = new SubjectManager(getContext());
                 manager.open();
-                name.setText(((FolderManager) manager).getFolder(id).getNameFolder());
+                name.setText(((SubjectManager) manager).getSubject(id).getNameSubject());
                 break;
             case 4:
-                manager = new FolderManager(getContext());
+                manager = new LessonManager(getContext());
                 manager.open();
-                name.setText(((FolderManager) manager).getFolder(id).getNameFolder());
+                name.setText(((LessonManager) manager).getLesson(id).getNameLesson());
                 break;
             default:
                 break;
@@ -79,13 +80,13 @@ public class CustomLongClickDialog extends Dialog implements View.OnClickListene
                         ((FolderActivity) a).askToDeleteFolder(id);
                         break;
                     case 2:
-                        ((FolderActivity) a).askToDeleteFolder(id);
+                        ((UEActivity) a).askToDeleteUE(id);
                         break;
                     case 3:
-                        ((FolderActivity) a).askToDeleteFolder(id);
+                        ((SubjectActivity) a).askToDeleteSubject(id);
                         break;
                     case 4:
-                        ((FolderActivity) a).askToDeleteFolder(id);
+                        ((LessonActivity) a).askToDeleteLesson(id);
                         break;
                     default:
                         break;
@@ -95,20 +96,20 @@ public class CustomLongClickDialog extends Dialog implements View.OnClickListene
             case R.id.btnRename:
                 switch (type){
                     case 1:
-                        ((FolderManager) manager).renameAFolder(name.getText().toString(), id);
+                        manager.rename(name.getText().toString(), id);
                         ((FolderActivity) a).updatePrint();
                         break;
                     case 2:
-                        ((FolderManager) manager).renameAFolder(name.getText().toString(), id);
-                        ((FolderActivity) a).updatePrint();
+                        manager.rename(name.getText().toString(), id);
+                        ((UEActivity) a).updatePrint();
                         break;
                     case 3:
-                        ((FolderManager) manager).renameAFolder(name.getText().toString(), id);
-                        ((FolderActivity) a).updatePrint();
+                        manager.rename(name.getText().toString(), id);
+                        ((SubjectActivity) a).updatePrint();
                         break;
                     case 4:
-                        ((FolderManager) manager).renameAFolder(name.getText().toString(), id);
-                        ((FolderActivity) a).updatePrint();
+                        manager.rename(name.getText().toString(), id);
+                        ((LessonActivity) a).updatePrint();
                         break;
                     default:
                         break;

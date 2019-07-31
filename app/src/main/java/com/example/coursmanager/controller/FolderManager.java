@@ -58,15 +58,26 @@ public class FolderManager extends Manager {
         return folder;
     }
 
-    public Cursor getAllFolder(){
-        return db.rawQuery("SELECT * FROM "+TABLE_NAME_FOLDER, null);
+    public Cursor getAllFolder(int order){
+        //Order 1 is by name ascendant, 2 by name descendant, 3 by creation date (default)
+        switch (order){
+            case 1:
+                return db.rawQuery("SELECT * FROM "+TABLE_NAME_FOLDER, null);
+            case 2:
+                return db.rawQuery("SELECT * FROM "+TABLE_NAME_FOLDER+" ORDER BY "+KEY_NAME_FOLDER, null);
+            case 3:
+                return db.rawQuery("SELECT * FROM "+TABLE_NAME_FOLDER+" ORDER BY "+KEY_NAME_FOLDER+" DESC ", null);
+            default:
+                return db.rawQuery("SELECT * FROM "+TABLE_NAME_FOLDER, null);
+        }
     }
 
     public void deleteAllFolder(){
         db.execSQL("DELETE FROM "+TABLE_NAME_FOLDER);
     }
 
-    public void renameAFolder(String newName, long aId){
+    @Override
+    public void rename(String newName, long aId){
         ContentValues value = new ContentValues();
         value.put(KEY_NAME_FOLDER, newName);
         db.update(TABLE_NAME_FOLDER, value, KEY_ID_FOLDER + "= ?", new String[] {aId+""});

@@ -107,4 +107,11 @@ public class LessonManager extends Manager {
         return mySQLiteBase.getReadableDatabase().rawQuery(requete + " AND "+LessonManager.TABLE_NAME_LESSON+"."+LessonManager.KEY_FINISH_LESSON+" = "+1, null).getCount();
     }
 
+    @Override
+    public void rename(String newName, long aId){
+        ContentValues value = new ContentValues();
+        value.put(KEY_NAME_LESSON, newName);
+        db.update(TABLE_NAME_LESSON, value, KEY_ID_LESSON + "= ?", new String[] {aId+""});
+    }
+
 }
