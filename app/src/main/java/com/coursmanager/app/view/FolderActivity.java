@@ -1,12 +1,17 @@
 package com.coursmanager.app.view;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -24,13 +29,23 @@ import android.widget.Toast;
 import com.coursmanager.app.R;
 import com.coursmanager.app.controller.FolderManager;
 import com.coursmanager.app.model.Folder;
+import com.coursmanager.app.tools.MySQLite;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 
 public class FolderActivity extends AppCompatActivity {
 
+    private String DB_FILEPATH;
+    private String NEW_DB_FILEPATH;
     private FolderManager folderManager;
     public SharedPreferences sharedPref;
     private String currentTheme;
     public int order;
+    private static String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +55,8 @@ public class FolderActivity extends AppCompatActivity {
         this.currentTheme = sharedPref.getString("theme", "light");
         this.order = sharedPref.getInt("orderFolder", 1);
 
-        Log.d("ORDER", String.valueOf(order));
+        this.DB_FILEPATH = this.getDatabasePath(MySQLite.DATABASE_NAME).toString();
+        this.NEW_DB_FILEPATH =  "/storage/self/primary/CoursManager/" + MySQLite.DATABASE_NAME;
 
         setAppTheme(this);
         setContentView(R.layout.activity_folder);
@@ -82,7 +98,7 @@ public class FolderActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
 
-            case R.id.actionDeleteAll:
+            case R.id.action_delete_all:
                 new AlertDialog.Builder(this)
                         .setTitle(R.string.deleteAll)
                         .setMessage(R.string.confirmDeleteAll)
@@ -102,6 +118,15 @@ public class FolderActivity extends AppCompatActivity {
             case R.id.action_order:
                 CustomOrderDialog cod = new CustomOrderDialog(FolderActivity.this);
                 cod.show();
+                break;
+
+            case R.id.action_import:
+                verifyPermissionImport();
+                recreate();
+                break;
+
+            case R.id.action_export:
+                //exportDataBase("");
                 break;
         }
 
@@ -222,6 +247,92 @@ public class FolderActivity extends AppCompatActivity {
             recreate();
         else
             updatePrint();
+    }
+
+    private boolean verifyPermissionImport() {
+        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext(), permissions[0]) == PackageManager.PERMISSION_GRANTED
+        && ContextCompat.checkSelfPermission(this.getApplicationContext(),permissions[1]) == PackageManager.PERMISSION_GRANTED){
+            try {
+                importDatabase(NEW_DB_FILEPATH, DB_FILEPATH);
+                recreate();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }else{
+            ActivityCompat.requestPermissions(this, permissions, 1);
+            return false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] perm, @NonNull int[] grantResult){
+        //If permissions have been accepted we can import
+        if(grantResult[0] == PackageManager.PERMISSION_GRANTED)
+            verifyPermissionImport();
+    }
+
+    /**
+     * Copies the database file at the specified location over the current
+     * internal application database.
+     * */
+    public boolean importDatabase(String newDbPath, String oldDbPath) throws IOException {
+
+        // Close the SQLiteOpenHelper so it will commit the created empty
+        // database to internal storage.
+
+        folderManager.close();
+        File newDb = new File(newDbPath);
+        File oldDb = new File(oldDbPath);
+        if (newDb.exists()) {
+            FolderActivity.FileUtils.copyFile(new FileInputStream(newDb), new FileOutputStream(oldDb));
+            // Access the copied database so SQLiteHelper will cache it and mark
+            // it as created.
+            folderManager.open();
+            //folderManager.close();
+            Toast.makeText(getApplicationContext(), R.string.imported, Toast.LENGTH_LONG).show();
+            return true;
+        }
+        Toast.makeText(getApplicationContext(), R.string.problemImporting, Toast.LENGTH_LONG).show();
+        return false;
+    }
+
+    public static class FileUtils {
+        /**
+         * Creates the specified <code>toFile</code> as a byte for byte copy of the
+         * <code>fromFile</code>. If <code>toFile</code> already exists, then it
+         * will be replaced with a copy of <code>fromFile</code>. The name and path
+         * of <code>toFile</code> will be that of <code>toFile</code>.<br/>
+         * <br/>
+         * <i> Note: <code>fromFile</code> and <code>toFile</code> will be closed by
+         * this function.</i>
+         *
+         * @param fromFile
+         *            - FileInputStream for the file to copy from.
+         * @param toFile
+         *            - FileInputStream for the file to copy to.
+         */
+        public static void copyFile(FileInputStream fromFile, FileOutputStream toFile) throws IOException {
+            FileChannel fromChannel = null;
+            FileChannel toChannel = null;
+            try {
+                fromChannel = fromFile.getChannel();
+                toChannel = toFile.getChannel();
+                fromChannel.transferTo(0, fromChannel.size(), toChannel);
+            } finally {
+                try {
+                    if (fromChannel != null) {
+                        fromChannel.close();
+                    }
+                } finally {
+                    if (toChannel != null) {
+                        toChannel.close();
+                    }
+                }
+            }
+        }
     }
 
 }

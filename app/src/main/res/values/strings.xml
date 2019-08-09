@@ -41,6 +41,11 @@
     <string name="dateCreation">Creation date</string>
     <string name="nameAsc">Ascending name</string>
     <string name="nameDesc">Descending name</string>
+    <string name="importDatas">Import</string>
+    <string name="exportDatas">Export</string>
+    <string name="imported">Datas imported</string>
+    <string name="notAccess">Access denied, please accept the permissions</string>
+    <string name="problemImporting">Error while importing process</string>
 
     <string name="title_activity_subject" translatable="false">SubjectActivity</string>
     <string name="title_activity_lesson" translatable="false">LessonActivity</string>

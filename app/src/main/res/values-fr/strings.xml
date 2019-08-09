@@ -43,4 +43,6 @@
     <string name="dateCreation">Date de création</string>
     <string name="nameAsc">Nom ascendant</string>
     <string name="nameDesc">Nom descendant</string>
+    <string name="exportDatas">Exporter</string>
+    <string name="importDatas">Importer</string>
 </resources>

@@ -9,10 +9,16 @@ import com.coursmanager.app.controller.LessonManager;
 import com.coursmanager.app.controller.PostCardManager;
 import com.coursmanager.app.controller.SubjectManager;
 import com.coursmanager.app.controller.UEManager;
+import com.coursmanager.app.view.FolderActivity;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class MySQLite extends SQLiteOpenHelper{
 
-    private static final String DATABASE_NAME = "myData.db";
+    public static final String DATABASE_NAME = "myData.db";
     private static final int DATABASE_VERSION = 6;
     private static MySQLite sInstance;
 
