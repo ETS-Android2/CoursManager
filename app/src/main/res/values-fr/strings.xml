@@ -45,4 +45,8 @@
     <string name="nameDesc">Nom descendant</string>
     <string name="exportDatas">Exporter</string>
     <string name="importDatas">Importer</string>
+    <string name="cantFindFile">Fichier introuvable</string>
+    <string name="imported">Données importées</string>
+    <string name="notAccess">Accès refusé, acceptez les permissions</string>
+    <string name="exported">Données exportées</string>
 </resources>

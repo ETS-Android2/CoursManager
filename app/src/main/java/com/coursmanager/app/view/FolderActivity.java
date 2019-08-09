@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
@@ -56,7 +57,9 @@ public class FolderActivity extends AppCompatActivity {
         this.order = sharedPref.getInt("orderFolder", 1);
 
         this.DB_FILEPATH = this.getDatabasePath(MySQLite.DATABASE_NAME).toString();
-        this.NEW_DB_FILEPATH =  "/storage/self/primary/CoursManager/" + MySQLite.DATABASE_NAME;
+        this.NEW_DB_FILEPATH = "/storage/self/primary/CoursManager/" + MySQLite.DATABASE_NAME;
+
+        Log.d("DEBUG", Environment.getExternalStoragePublicDirectory("DIRECTORY_DOCUMENTS").toString());
 
         setAppTheme(this);
         setContentView(R.layout.activity_folder);
@@ -121,12 +124,12 @@ public class FolderActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_import:
-                verifyPermissionImport();
+                verifyPermissionImportExport(2);
                 recreate();
                 break;
 
             case R.id.action_export:
-                //exportDataBase("");
+                verifyPermissionImportExport(1);
                 break;
         }
 
@@ -249,20 +252,29 @@ public class FolderActivity extends AppCompatActivity {
             updatePrint();
     }
 
-    private boolean verifyPermissionImport() {
+    /**
+     *
+     * @param request: 1 export / 2 import
+     * @return: true if there is access, else false
+     */
+    private boolean verifyPermissionImportExport(int request) {
         String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         if(ContextCompat.checkSelfPermission(this.getApplicationContext(), permissions[0]) == PackageManager.PERMISSION_GRANTED
         && ContextCompat.checkSelfPermission(this.getApplicationContext(),permissions[1]) == PackageManager.PERMISSION_GRANTED){
             try {
-                importDatabase(NEW_DB_FILEPATH, DB_FILEPATH);
-                recreate();
+                if(request == 1)
+                    exportDatabase(NEW_DB_FILEPATH, DB_FILEPATH);
+                else if(request == 2) {
+                    importDatabase(NEW_DB_FILEPATH, DB_FILEPATH);
+                    recreate();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
             return true;
         }else{
-            ActivityCompat.requestPermissions(this, permissions, 1);
+            ActivityCompat.requestPermissions(this, permissions, request);
             return false;
         }
     }
@@ -271,7 +283,7 @@ public class FolderActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] perm, @NonNull int[] grantResult){
         //If permissions have been accepted we can import
         if(grantResult[0] == PackageManager.PERMISSION_GRANTED)
-            verifyPermissionImport();
+            verifyPermissionImportExport(requestCode);
     }
 
     /**
@@ -291,11 +303,30 @@ public class FolderActivity extends AppCompatActivity {
             // Access the copied database so SQLiteHelper will cache it and mark
             // it as created.
             folderManager.open();
-            //folderManager.close();
             Toast.makeText(getApplicationContext(), R.string.imported, Toast.LENGTH_LONG).show();
             return true;
         }
-        Toast.makeText(getApplicationContext(), R.string.problemImporting, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), R.string.cantFindFile, Toast.LENGTH_LONG).show();
+        return false;
+    }
+
+    /**
+     * Copies the database file at the specified location over the current
+     * internal application database.
+     * */
+    public boolean exportDatabase(String saveDbPath, String currentDbPath) throws IOException {
+        File savedDb = new File(saveDbPath);
+        File currentDb = new File(currentDbPath);
+        /*File folder = new File(getFilesDir() + "theFolder");
+        if(!folder.exists()){
+            folder.mkdir();
+        }*/
+        if (currentDb.exists()) {
+            FolderActivity.FileUtils.copyFile(new FileInputStream(currentDb), new FileOutputStream(savedDb));
+            Toast.makeText(getApplicationContext(), R.string.exported, Toast.LENGTH_LONG).show();
+            return true;
+        }
+        Toast.makeText(getApplicationContext(), R.string.cantFindFile, Toast.LENGTH_LONG).show();
         return false;
     }
 
