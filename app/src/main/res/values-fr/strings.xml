@@ -49,4 +49,6 @@
     <string name="imported">Données importées</string>
     <string name="notAccess">Accès refusé, acceptez les permissions</string>
     <string name="exported">Données exportées</string>
+    <string name="askImport">Voulez-vous vraiment remplacer vos données par les données d\'importation ?</string>
+    <string name="askExport">Voulez-vous vraiment sauvegarder et écraser votre sauvegarde actuelle ?</string>
 </resources>

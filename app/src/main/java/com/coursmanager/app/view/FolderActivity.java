@@ -46,7 +46,6 @@ public class FolderActivity extends AppCompatActivity {
     public SharedPreferences sharedPref;
     private String currentTheme;
     public int order;
-    private static String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,12 +123,35 @@ public class FolderActivity extends AppCompatActivity {
                 break;
 
             case R.id.action_import:
-                verifyPermissionImportExport(2);
-                recreate();
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.importDatas)
+                        .setMessage(R.string.askImport)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                verifyPermissionImportExport(2);
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                        .show();
                 break;
 
             case R.id.action_export:
-                verifyPermissionImportExport(1);
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.exportDatas)
+                        .setMessage(R.string.askExport)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                verifyPermissionImportExport(1);
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                        .show();
                 break;
         }
 
@@ -262,15 +284,20 @@ public class FolderActivity extends AppCompatActivity {
 
         if(ContextCompat.checkSelfPermission(this.getApplicationContext(), permissions[0]) == PackageManager.PERMISSION_GRANTED
         && ContextCompat.checkSelfPermission(this.getApplicationContext(),permissions[1]) == PackageManager.PERMISSION_GRANTED){
-            try {
-                if(request == 1)
+            if(request == 1) {
+                try {
                     exportDatabase(NEW_DB_FILEPATH, DB_FILEPATH);
-                else if(request == 2) {
-                    importDatabase(NEW_DB_FILEPATH, DB_FILEPATH);
-                    recreate();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            }
+            else if(request == 2) {
+                try {
+                    importDatabase(NEW_DB_FILEPATH, DB_FILEPATH);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                recreate();
             }
             return true;
         }else{

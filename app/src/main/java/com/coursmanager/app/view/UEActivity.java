@@ -27,6 +27,8 @@ import com.coursmanager.app.controller.UEManager;
 import com.coursmanager.app.model.Folder;
 import com.coursmanager.app.model.UE;
 
+import java.util.Objects;
+
 public class UEActivity extends AppCompatActivity {
 
     // Manager of UE db

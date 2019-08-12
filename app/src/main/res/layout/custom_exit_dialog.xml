@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
-    android:background="#3E80B4"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical"
     android:paddingTop="10dp"
     android:paddingBottom="10dp">
@@ -23,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#3E80B4"
         android:orientation="horizontal"
         android:layout_marginTop="10dp" >
 
@@ -35,7 +34,7 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/no"
-            android:textColor="#5DBCD2"
+            android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
             tools:ignore="ButtonStyle" />
 
@@ -48,7 +47,7 @@
             android:clickable="true"
             android:focusable="true"
             android:text="@string/yes"
-            android:textColor="#5DBCD2"
+            android:textColor="?attr/colorPrimary"
             android:textStyle="bold"
             tools:ignore="ButtonStyle" />
     </LinearLayout>

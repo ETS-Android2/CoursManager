@@ -21,6 +21,8 @@
     <string name="defaultNameTeach">Teacher name</string>
     <string name="defaultNameFolder">Folder name</string>
     <string name="askDelete">Do you really want to remove it ?</string>
+    <string name="askImport">Do you really want to replace your datas by imported datas ?</string>
+    <string name="askExport">Do you really want to save and erase your current save ?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
     <string name="finish">Finish</string>
