@@ -57,9 +57,9 @@ public class FolderActivity extends AppCompatActivity {
         this.order = sharedPref.getInt("orderFolder", 1);
 
         this.DB_FILEPATH = this.getDatabasePath(MySQLite.DATABASE_NAME).toString();
-        this.NEW_DB_FILEPATH = "/storage/self/primary/CoursManager/" + MySQLite.DATABASE_NAME;
+        this.NEW_DB_FILEPATH = Environment.getExternalStorageDirectory().toString() + "/CoursManager/" + MySQLite.DATABASE_NAME;
 
-        Log.d("DEBUG", Environment.getExternalStoragePublicDirectory("DIRECTORY_DOCUMENTS").toString());
+        //Log.d("DEBUG", NEW_DB_FILEPATH);
 
         setAppTheme(this);
         setContentView(R.layout.activity_folder);
@@ -317,11 +317,10 @@ public class FolderActivity extends AppCompatActivity {
     public boolean exportDatabase(String saveDbPath, String currentDbPath) throws IOException {
         File savedDb = new File(saveDbPath);
         File currentDb = new File(currentDbPath);
-        /*File folder = new File(getFilesDir() + "theFolder");
-        if(!folder.exists()){
-            folder.mkdir();
-        }*/
-        if (currentDb.exists()) {
+
+        savedDb.getParentFile().mkdirs();
+
+        if (currentDb.exists() && savedDb.getParentFile().exists()) {
             FolderActivity.FileUtils.copyFile(new FileInputStream(currentDb), new FileOutputStream(savedDb));
             Toast.makeText(getApplicationContext(), R.string.exported, Toast.LENGTH_LONG).show();
             return true;
