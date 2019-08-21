@@ -1,5 +1,6 @@
 package com.coursmanager.app.view;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +27,10 @@ import com.coursmanager.app.R;
 import com.coursmanager.app.controller.LessonManager;
 import com.coursmanager.app.model.Lesson;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class LessonActivity extends AppCompatActivity {
 
@@ -148,15 +153,38 @@ public class LessonActivity extends AppCompatActivity {
 
     public void submitLesson() {
         LinearLayout layout = new LinearLayout(this);
+        final Calendar myCalendar = Calendar.getInstance();
         final EditText editText = new EditText(this);
         final EditText editTextTeach = new EditText(this);
+        final EditText editDateJ0 = new EditText(this);
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                editDateJ0.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+
+        editDateJ0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(LessonActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
         editText.setHint(R.string.defaultNameLesson);
         editTextTeach.setHint(R.string.defaultNameTeach);
+        editDateJ0.setHint("jour/mois/année");
 
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(editText);
         layout.addView(editTextTeach);
+        layout.addView(editDateJ0);
 
         new AlertDialog.Builder(this)
                 .setTitle(R.string.titleAddLesson)
