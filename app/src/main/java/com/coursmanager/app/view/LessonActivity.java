@@ -67,6 +67,7 @@ public class LessonActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
                 submitLesson();
@@ -252,7 +253,7 @@ public class LessonActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.btnAdd, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Create a UE in db
-                        if((checkMethodJ.isChecked() && editDateMax.getText().toString().isEmpty() && selectFirstRead.getSelectedItemPosition() != 0 && selectRythm.getSelectedItemPosition() != 0) || !checkMethodJ.isChecked()) {
+                        if((checkMethodJ.isChecked() && !editDateMax.getText().toString().isEmpty() && selectFirstRead.getSelectedItemPosition() != 0 && selectRythm.getSelectedItemPosition() != 0) || !checkMethodJ.isChecked()) {
                             if (lessonManager.addLesson(new Lesson(0, editText.getText().toString(), editTextTeach.getText().toString(), editDateJ0.getText().toString(), "", false, idSubject, 10, 0, selectRythm.getSelectedItemPosition() + 2, selectFirstRead.getSelectedItemPosition() + 1, editDateMax.getText().toString())) == -1) {
                                 Toast.makeText(getApplicationContext(), R.string.lessonAddError, Toast.LENGTH_LONG).show();
                             }else{
