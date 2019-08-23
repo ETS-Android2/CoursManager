@@ -5,21 +5,28 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +35,7 @@ import com.coursmanager.app.controller.LessonManager;
 import com.coursmanager.app.model.Lesson;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -151,14 +159,19 @@ public class LessonActivity extends AppCompatActivity {
         });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void submitLesson() {
         LinearLayout layout = new LinearLayout(this);
         final Calendar myCalendar = Calendar.getInstance();
         final EditText editText = new EditText(this);
         final EditText editTextTeach = new EditText(this);
         final EditText editDateJ0 = new EditText(this);
+        final CheckBox checkMethodJ = new CheckBox(this);
+        final EditText editDateMax = new EditText(this);
+        final Spinner selectRythm = new Spinner(this);
+        final Spinner selectFirstRead = new Spinner(this);
 
-        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+        final DatePickerDialog.OnDateSetListener dateJ0 = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
                 myCalendar.set(Calendar.YEAR, year);
@@ -170,21 +183,67 @@ public class LessonActivity extends AppCompatActivity {
             }
         };
 
+        final DatePickerDialog.OnDateSetListener dateMax = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                editDateMax.setText(sdf.format(myCalendar.getTime()));
+            }
+        };
+
         editDateJ0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(LessonActivity.this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(LessonActivity.this, dateJ0, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+        editDateMax.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(LessonActivity.this, dateMax, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
         editText.setHint(R.string.defaultNameLesson);
         editTextTeach.setHint(R.string.defaultNameTeach);
-        editDateJ0.setHint("jour/mois/année");
+        editDateJ0.setHint("J0: 01/12/1990");
+        editDateMax.setHint("JMax: 02/12/1990");
+
+        ArrayList<String> firstReadArray = new ArrayList<>();
+        firstReadArray.add(getResources().getString(R.string.selectFirstJ));
+        firstReadArray.add("J+2");
+        firstReadArray.add("J+3");
+        ArrayAdapter<String> firstReadAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, firstReadArray);
+        selectFirstRead.setAdapter(firstReadAdapter);
+
+        ArrayList<String> rythmArray = new ArrayList<>();
+        rythmArray.add(getResources().getString(R.string.selectRythm));
+        rythmArray.add("3-6-12-...");
+        rythmArray.add("4-8-16-...");
+        rythmArray.add("5-10-20-...");
+        rythmArray.add("6-12-24-...");
+        rythmArray.add("7-14-28-...");
+        rythmArray.add("8-16-32-...");
+        ArrayAdapter<String> rythmAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, rythmArray);
+        selectRythm.setAdapter(rythmAdapter);
+
+        checkMethodJ.setText(R.string.jMethod);
 
         layout.setOrientation(LinearLayout.VERTICAL);
         layout.addView(editText);
         layout.addView(editTextTeach);
         layout.addView(editDateJ0);
+        layout.addView(checkMethodJ);
+        layout.addView(editDateMax);
+        layout.addView(selectFirstRead);
+        layout.addView(selectRythm);
+
+        layout.setGravity(Gravity.CENTER);
 
         new AlertDialog.Builder(this)
                 .setTitle(R.string.titleAddLesson)
@@ -193,10 +252,14 @@ public class LessonActivity extends AppCompatActivity {
                 .setPositiveButton(R.string.btnAdd, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Create a UE in db
-                        if(lessonManager.addLesson(new Lesson(0, editText.getText().toString(), editTextTeach.getText().toString(), new Date().getTime(), "",false, idSubject, 10, 0)) == -1){
-                            Toast.makeText(getApplicationContext(), R.string.lessonAddError, Toast.LENGTH_LONG).show();
+                        if((checkMethodJ.isChecked() && editDateMax.getText().toString().isEmpty() && selectFirstRead.getSelectedItemPosition() != 0 && selectRythm.getSelectedItemPosition() != 0) || !checkMethodJ.isChecked()) {
+                            if (lessonManager.addLesson(new Lesson(0, editText.getText().toString(), editTextTeach.getText().toString(), editDateJ0.getText().toString(), "", false, idSubject, 10, 0, selectRythm.getSelectedItemPosition() + 2, selectFirstRead.getSelectedItemPosition() + 1, editDateMax.getText().toString())) == -1) {
+                                Toast.makeText(getApplicationContext(), R.string.lessonAddError, Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), R.string.lessonAddGood, Toast.LENGTH_LONG).show();
+                            }
                         }else{
-                            Toast.makeText(getApplicationContext(), R.string.lessonAddGood, Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.lessonAddFields, Toast.LENGTH_LONG).show();
                         }
 
                         updatePrint();

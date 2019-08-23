@@ -49,6 +49,10 @@
     <string name="exported">Datas exported</string>
     <string name="notAccess">Access denied, accept the permissions</string>
     <string name="cantFindFile">Can\'t find the file</string>
+    <string name="selectFirstJ">Select second revision ...</string>
+    <string name="selectRythm">Select rythm ...</string>
+    <string name="jMethod">J Method</string>
+    <string name="rereadingMethod">Simple Rereading</string>
 
     <string name="title_activity_subject" translatable="false">SubjectActivity</string>
     <string name="title_activity_lesson" translatable="false">LessonActivity</string>
@@ -67,4 +71,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="title_activity_shuffle_post_card" translatable="false">ShufflePostCardActivity</string>
+    <string name="lessonAddFields">Incorrect fields</string>
 </resources>

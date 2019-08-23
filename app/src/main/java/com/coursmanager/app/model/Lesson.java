@@ -5,23 +5,29 @@ public class Lesson {
     private long idLesson;
     private String nameLesson;
     private String nameTeacher;
-    private long date;
+    private String dateJ0;
     private String note;
     private boolean finish;
     private long idSubject;
     private int objective;
     private int nbRead;
+    private int rhythm;
+    private int firstRead;
+    private String dateMax;
 
-    public Lesson(long aId, String lesson, String teacher, long date, String note, boolean finish, long subject, int objective, int nbRead){
+    public Lesson(long aId, String lesson, String teacher, String dateJ0, String note, boolean finish, long subject, int objective, int nbRead, int rhythm, int firstRead, String dateMax){
         this.idLesson = aId;
         this.nameLesson = lesson;
         this.nameTeacher = teacher;
-        this.date = date;
+        this.dateJ0 = dateJ0;
         this.note = note;
         this.finish = finish;
         this.idSubject = subject;
         this.objective = objective;
         this.nbRead = nbRead;
+        this.rhythm = rhythm;
+        this.firstRead = firstRead;
+        this.dateMax = dateMax;
     }
 
     public long getIdLesson() {
@@ -48,12 +54,12 @@ public class Lesson {
         this.nameTeacher = nameTeacher;
     }
 
-    public long getDate() {
-        return date;
+    public String getDateJ0() {
+        return dateJ0;
     }
 
-    public void setDate(long date) {
-        this.date = date;
+    public void setDateJ0(String date) {
+        this.dateJ0 = date;
     }
 
     public String getNote() {
@@ -94,6 +100,30 @@ public class Lesson {
 
     public void setNbRead(int nbRead) {
         this.nbRead = nbRead;
+    }
+
+    public int getRhythm() {
+        return rhythm;
+    }
+
+    public void setRhythm(int rhythm) {
+        this.rhythm = rhythm;
+    }
+
+    public int getFirstRead() {
+        return firstRead;
+    }
+
+    public void setFirstRead(int firstRead) {
+        this.firstRead = firstRead;
+    }
+
+    public String getDateMax() {
+        return dateMax;
+    }
+
+    public void setDateMax(String dateMax) {
+        this.dateMax = dateMax;
     }
 
 }
