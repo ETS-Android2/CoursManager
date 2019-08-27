@@ -20,7 +20,7 @@
             android:name=".view.ShufflePostCardActivity"
             android:label="@string/title_activity_shuffle_post_card" />
         <activity
-            android:name=".view.LessonDetailPostActivity"
+            android:name=".view.LessonMainActivity"
             android:label="@string/title_activity_lesson_detail_post"
             android:windowSoftInputMode="adjustPan" />
         <activity

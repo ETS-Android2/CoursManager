@@ -14,8 +14,10 @@ public class Lesson {
     private int rhythm;
     private int firstRead;
     private String dateMax;
+    private boolean jMethod;
+    private String nextRead;
 
-    public Lesson(long aId, String lesson, String teacher, String dateJ0, String note, boolean finish, long subject, int objective, int nbRead, int rhythm, int firstRead, String dateMax){
+    public Lesson(long aId, String lesson, String teacher, String dateJ0, String note, boolean finish, long subject, int objective, int nbRead, int rhythm, int firstRead, String dateMax, boolean jMethod, String nextRead){
         this.idLesson = aId;
         this.nameLesson = lesson;
         this.nameTeacher = teacher;
@@ -28,6 +30,8 @@ public class Lesson {
         this.rhythm = rhythm;
         this.firstRead = firstRead;
         this.dateMax = dateMax;
+        this.jMethod = jMethod;
+        this.nextRead = nextRead;
     }
 
     public long getIdLesson() {
@@ -126,4 +130,19 @@ public class Lesson {
         this.dateMax = dateMax;
     }
 
+    public boolean isjMethod() {
+        return jMethod;
+    }
+
+    public void setjMethod(boolean jMethod) {
+        this.jMethod = jMethod;
+    }
+
+    public String getNextRead() {
+        return nextRead;
+    }
+
+    public void setNextRead(String nextRead) {
+        this.nextRead = nextRead;
+    }
 }

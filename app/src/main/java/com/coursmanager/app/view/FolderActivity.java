@@ -23,12 +23,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coursmanager.app.R;
 import com.coursmanager.app.controller.FolderManager;
+import com.coursmanager.app.controller.LessonManager;
 import com.coursmanager.app.model.Folder;
 import com.coursmanager.app.tools.MySQLite;
 
@@ -43,6 +45,7 @@ public class FolderActivity extends AppCompatActivity {
     private String DB_FILEPATH;
     private String NEW_DB_FILEPATH;
     private FolderManager folderManager;
+    private LessonManager lessonManager;
     public SharedPreferences sharedPref;
     private String currentTheme;
     public int order;
@@ -69,6 +72,9 @@ public class FolderActivity extends AppCompatActivity {
 
         folderManager = new FolderManager(this);
         folderManager.open();
+
+        lessonManager = new LessonManager(this);
+        lessonManager.open();
 
         updatePrint();
 
@@ -211,6 +217,36 @@ public class FolderActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), UEActivity.class);
                 intent.putExtra("idFolder", id);
                 intent.putExtra("folderName", folderManager.getFolder(id).getNameFolder());
+                startActivity(intent);
+            }
+        });
+
+        c = lessonManager.getAllLessonsToRead();
+        fromFieldNames = new String[] {LessonManager.KEY_NAME_LESSON};
+        toViewIDs = new int[] {R.id.textNameLesson};
+        myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_lesson_to_read, c, fromFieldNames, toViewIDs, 0);
+        /*myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int i) {
+                if(view.getId() == R.id.textNameFolder){
+                    ((TextView) view).setText(cursor.getString(cursor.getColumnIndex(FolderManager.KEY_NAME_FOLDER)));
+                }else{
+                    ((TextView) view).setText(cursor.getString(cursor.getColumnIndex(FolderManager.KEY_PERCENTAGE_FOLDER))+" %");
+                }
+
+                return true;
+            }
+        });*/
+
+        ListView myList = findViewById(R.id.listViewLessonToRead);
+        myList.setAdapter(myCursorAdapter);
+
+        myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), LessonMainActivity.class);
+                intent.putExtra("idLesson", id);
+                intent.putExtra("lessonName", lessonManager.getLesson(id).getNameLesson());
                 startActivity(intent);
             }
         });

@@ -15,7 +15,7 @@ import com.coursmanager.app.R;
 import com.coursmanager.app.controller.LessonManager;
 import com.coursmanager.app.model.Lesson;
 
-public class LessonDetailPostActivity extends AppCompatActivity {
+public class LessonMainActivity extends AppCompatActivity {
 
     private Fragment fragmentDetails;
     private Fragment fragmentPostCard;
@@ -25,11 +25,12 @@ public class LessonDetailPostActivity extends AppCompatActivity {
     private int activeFragment;
 
     private LessonManager lessonManager;
-    private Lesson currentLesson;
+    public Lesson currentLesson;
 
     public int objective;
     public int nbReading;
     public String note;
+    public String nextRead;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,13 +73,17 @@ public class LessonDetailPostActivity extends AppCompatActivity {
         this.currentLesson = lessonManager.getLesson(intent.getLongExtra("idLesson", 0));
 
         this.nbReading = currentLesson.getNbRead();
+        this.nextRead = currentLesson.getNextRead();
 
 
         this.fm = getSupportFragmentManager();
 
-        this.fragmentDetails = LessonDetailsFragment.newInstance(intent.getLongExtra("idLesson", 0));
+        this.fragmentDetails = LessonDetailsFragment.newInstance();
         this.fragmentPostCard = LessonPostFragment.newInstance(intent.getLongExtra("idLesson", 0));
-        this.fragmentReReading = LessonReReadingFragment.newInstance(currentLesson.getObjective(), currentLesson.getNbRead());
+        if(currentLesson.isjMethod())
+            this.fragmentReReading = LessonJMethodFragment.newInstance();
+        else
+            this.fragmentReReading = LessonReReadingFragment.newInstance(currentLesson.getObjective(), currentLesson.getNbRead());
 
         if(savedInstanceState == null) {
             Log.d("Test", "tessssssst");
@@ -118,9 +123,11 @@ public class LessonDetailPostActivity extends AppCompatActivity {
         super.onPause();
 
         currentLesson.setNote(note);
-        currentLesson.setFinish(nbReading == objective);
+        if(!currentLesson.isjMethod())
+            currentLesson.setFinish(nbReading == objective);
         currentLesson.setObjectve(objective);
         currentLesson.setNbRead(nbReading);
+        currentLesson.setNextRead(nextRead);
 
         lessonManager.updateLesson(currentLesson);
 
@@ -136,7 +143,6 @@ public class LessonDetailPostActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
-        Log.d("Before", String.valueOf(activeFragment));
         outState.putInt("active", activeFragment);
     }
 

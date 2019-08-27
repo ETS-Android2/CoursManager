@@ -39,8 +39,10 @@ public class LessonReReadingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.objective = getArguments().getInt("objective");
-        this.nbReading = getArguments().getInt("nbReading");
+        if(getArguments() != null) {
+            this.objective = getArguments().getInt("objective");
+            this.nbReading = getArguments().getInt("nbReading");
+        }
     }
 
     @Override
@@ -106,8 +108,8 @@ public class LessonReReadingFragment extends Fragment {
     }
 
     private void save(){
-        ((LessonDetailPostActivity) getActivity()).objective = objective;
-        ((LessonDetailPostActivity) getActivity()).nbReading = nbReading;
+        ((LessonMainActivity) getActivity()).objective = objective;
+        ((LessonMainActivity) getActivity()).nbReading = nbReading;
     }
 
 }

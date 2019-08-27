@@ -11,7 +11,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.coursmanager.app.R;
-import com.coursmanager.app.view.LessonDetailPostActivity;
+import com.coursmanager.app.view.LessonMainActivity;
 import com.coursmanager.app.view.LessonReReadingFragment;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class MyCustomAdapter extends ArrayAdapter<Boolean> {
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if(mContext instanceof LessonDetailPostActivity){
+                if(mContext instanceof LessonMainActivity){
                     if(isChecked)
                         currentFrament.nbReading++;
                     else

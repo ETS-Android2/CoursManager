@@ -10,37 +10,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.coursmanager.app.R;
-import com.coursmanager.app.controller.LessonManager;
-import com.coursmanager.app.model.Lesson;
+
+import java.util.Objects;
 
 
 public class LessonDetailsFragment extends Fragment {
 
-    private LessonManager lessonManager;
     private EditText textNote;
-    private Lesson currentLesson;
 
     public LessonDetailsFragment() {
     }
 
-    public static LessonDetailsFragment newInstance(long aId){
-        LessonDetailsFragment fm = new LessonDetailsFragment();
-
-        Bundle args = new Bundle();
-        args.putLong("idLesson", aId);
-        fm.setArguments(args);
-
-        return fm;
+    public static LessonDetailsFragment newInstance(){
+        return new LessonDetailsFragment();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.lessonManager = new LessonManager(getContext());
-        this.lessonManager.open();
-
-        this.currentLesson = lessonManager.getLesson(getArguments().getLong("idLesson", 0));
     }
 
     @Override
@@ -50,10 +37,10 @@ public class LessonDetailsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_lesson_details, container, false);
 
         TextView textDetails = rootView.findViewById(R.id.textDetails);
-        textDetails.setText(currentLesson.getNameTeacher());
+        textDetails.setText(((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.getNameTeacher());
 
         this.textNote = rootView.findViewById(R.id.editNote);
-        this.textNote.setText(currentLesson.getNote());
+        this.textNote.setText(((LessonMainActivity) getActivity()).currentLesson.getNote());
 
         return rootView;
     }
@@ -65,7 +52,7 @@ public class LessonDetailsFragment extends Fragment {
     }
 
     public void save(){
-        ((LessonDetailPostActivity) getActivity()).note = textNote.getText().toString();
+        ((LessonMainActivity) Objects.requireNonNull(getActivity())).note = textNote.getText().toString();
     }
 
 }

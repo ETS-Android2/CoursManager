@@ -21,6 +21,8 @@ public class LessonManager extends Manager {
     public static final String KEY_RYTHM = "rythm";
     public static final String KEY_FIRST_READ = "first_read";
     public static final String KEY_DATE_MAX = "date_max";
+    public static final String KEY_J_METHOD = "j_method";
+    public static final String KEY_NEXT_READ = "next_read";
 
     public static final String CREATE_TABLE_LESSON = "CREATE TABLE "+TABLE_NAME_LESSON+
             "("+KEY_ID_LESSON+" INTEGER PRIMARY KEY AUTOINCREMENT,"+
@@ -35,6 +37,8 @@ public class LessonManager extends Manager {
             " "+KEY_RYTHM+" INTEGER,"+
             " "+KEY_FIRST_READ+" INTEGER,"+
             " "+KEY_DATE_MAX+" TEXT,"+
+            " "+KEY_J_METHOD+" NUMERIC,"+
+            " "+KEY_NEXT_READ+" TEXT,"+
             " FOREIGN KEY("+KEY_IDSUBJECT_LESSON+") REFERENCES "+SubjectManager.TABLE_NAME_SUBJECT+"("+SubjectManager.KEY_ID_SUBJECT+")"+" ON DELETE CASCADE"+
             ");";
 
@@ -55,6 +59,8 @@ public class LessonManager extends Manager {
         values.put(KEY_RYTHM, aLesson.getRhythm());
         values.put(KEY_FIRST_READ, aLesson.getFirstRead());
         values.put(KEY_DATE_MAX, aLesson.getDateMax());
+        values.put(KEY_J_METHOD, aLesson.isjMethod());
+        values.put(KEY_NEXT_READ, aLesson.getNextRead());
 
         return db.insert(TABLE_NAME_LESSON, null, values);
     }
@@ -72,6 +78,8 @@ public class LessonManager extends Manager {
         values.put(KEY_RYTHM, aLesson.getRhythm());
         values.put(KEY_FIRST_READ, aLesson.getFirstRead());
         values.put(KEY_DATE_MAX, aLesson.getDateMax());
+        values.put(KEY_J_METHOD, aLesson.isjMethod());
+        values.put(KEY_NEXT_READ, aLesson.getNextRead());
 
         String where = KEY_ID_LESSON+" = ?";
         String[] whereArgs = {aLesson.getIdLesson()+""};
@@ -84,7 +92,7 @@ public class LessonManager extends Manager {
     }
 
     public Lesson getLesson(long aId){
-        Lesson l = new Lesson(0, "", "", "", "", false, 0, 0, 0, 7, 2, "");
+        Lesson l = new Lesson(0, "", "", "", "", false, 0, 0, 0, 7, 2, "", false, "");
 
         Cursor c = db.rawQuery("SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_ID_LESSON+"="+aId, null);
         if(c.moveToFirst()){
@@ -100,6 +108,8 @@ public class LessonManager extends Manager {
             l.setRhythm(c.getInt(c.getColumnIndex(KEY_RYTHM)));
             l.setFirstRead(c.getInt(c.getColumnIndex(KEY_FIRST_READ)));
             l.setDateMax(c.getString(c.getColumnIndex(KEY_DATE_MAX)));
+            l.setjMethod(c.getInt(c.getColumnIndex(KEY_J_METHOD)) > 0);
+            l.setNextRead(c.getString(c.getColumnIndex(KEY_NEXT_READ)));
         }
 
         return l;
@@ -118,6 +128,11 @@ public class LessonManager extends Manager {
             default:
                 return db.rawQuery(request, null);
         }
+    }
+
+    public Cursor getAllLessonsToRead(){
+        String request = "SELECT * FROM "+TABLE_NAME_LESSON;
+        return db.rawQuery(request, null);
     }
 
     public int getNumberLessonsInFolder(long idFolder){

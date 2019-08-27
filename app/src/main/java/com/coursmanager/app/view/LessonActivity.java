@@ -26,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,11 +33,11 @@ import com.coursmanager.app.R;
 import com.coursmanager.app.controller.LessonManager;
 import com.coursmanager.app.model.Lesson;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
 
 public class LessonActivity extends AppCompatActivity {
 
@@ -152,7 +151,7 @@ public class LessonActivity extends AppCompatActivity {
         myList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), LessonDetailPostActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LessonMainActivity.class);
                 intent.putExtra("idLesson", id);
                 intent.putExtra("lessonName", lessonManager.getLesson(id).getNameLesson());
                 startActivity(intent);
@@ -171,6 +170,7 @@ public class LessonActivity extends AppCompatActivity {
         final EditText editDateMax = new EditText(this);
         final Spinner selectRythm = new Spinner(this);
         final Spinner selectFirstRead = new Spinner(this);
+        final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         final DatePickerDialog.OnDateSetListener dateJ0 = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -179,7 +179,6 @@ public class LessonActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 editDateJ0.setText(sdf.format(myCalendar.getTime()));
             }
         };
@@ -191,7 +190,6 @@ public class LessonActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.MONTH, monthOfYear);
                 myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 editDateMax.setText(sdf.format(myCalendar.getTime()));
             }
         };
@@ -254,7 +252,15 @@ public class LessonActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         // Create a UE in db
                         if((checkMethodJ.isChecked() && !editDateMax.getText().toString().isEmpty() && selectFirstRead.getSelectedItemPosition() != 0 && selectRythm.getSelectedItemPosition() != 0) || !checkMethodJ.isChecked()) {
-                            if (lessonManager.addLesson(new Lesson(0, editText.getText().toString(), editTextTeach.getText().toString(), editDateJ0.getText().toString(), "", false, idSubject, 10, 0, selectRythm.getSelectedItemPosition() + 2, selectFirstRead.getSelectedItemPosition() + 1, editDateMax.getText().toString())) == -1) {
+                            //Try to get the first date of rereading
+                            try {
+                                myCalendar.setTime(sdf.parse(editDateJ0.getText().toString()));
+                                myCalendar.add(Calendar.DAY_OF_MONTH, selectFirstRead.getSelectedItemPosition() + 1);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                            if (lessonManager.addLesson(new Lesson(0, editText.getText().toString(), editTextTeach.getText().toString(), editDateJ0.getText().toString(), "", false, idSubject, 10, 0, selectRythm.getSelectedItemPosition() + 2, selectFirstRead.getSelectedItemPosition() + 1, editDateMax.getText().toString(), checkMethodJ.isChecked(), sdf.format(myCalendar.getTime()))) == -1) {
                                 Toast.makeText(getApplicationContext(), R.string.lessonAddError, Toast.LENGTH_LONG).show();
                             }else{
                                 Toast.makeText(getApplicationContext(), R.string.lessonAddGood, Toast.LENGTH_LONG).show();
