@@ -3,8 +3,12 @@ package com.coursmanager.app.controller;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.coursmanager.app.model.Lesson;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class LessonManager extends Manager {
 
@@ -131,7 +135,10 @@ public class LessonManager extends Manager {
     }
 
     public Cursor getAllLessonsToRead(){
-        String request = "SELECT * FROM "+TABLE_NAME_LESSON;
+        Calendar myCalendar = Calendar.getInstance();
+        String today = new SimpleDateFormat("yyyy-MM-dd").format(myCalendar.getTime());
+
+        String request = "SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_NEXT_READ+" <= '"+today+"'";
         return db.rawQuery(request, null);
     }
 

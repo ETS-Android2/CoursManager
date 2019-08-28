@@ -56,4 +56,7 @@
     <string name="lessonAddFields">Champs incorrects</string>
     <string name="jMethod">Méthode des J</string>
     <string name="rereadingMethod">Relecture simple</string>
+    <string name="nothingToDo">Rien à faire</string>
+    <string name="toDo">À faire</string>
+    <string name="done">Fait</string>
 </resources>

@@ -10,9 +10,11 @@
         android:id="@+id/textNameLesson"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Lesson"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textStyle="bold"
-        android:text="Lesson"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

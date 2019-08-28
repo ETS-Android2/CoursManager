@@ -222,6 +222,9 @@ public class FolderActivity extends AppCompatActivity {
         });
 
         c = lessonManager.getAllLessonsToRead();
+        if(c.getCount() == 0)
+            ((TextView) findViewById(R.id.tToDo)).setText(getResources().getString(R.string.nothingToDo));
+
         fromFieldNames = new String[] {LessonManager.KEY_NAME_LESSON};
         toViewIDs = new int[] {R.id.textNameLesson};
         myCursorAdapter = new SimpleCursorAdapter(getBaseContext(), R.layout.item_layout_lesson_to_read, c, fromFieldNames, toViewIDs, 0);

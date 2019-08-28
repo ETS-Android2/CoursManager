@@ -49,10 +49,13 @@
     <string name="exported">Datas exported</string>
     <string name="notAccess">Access denied, accept the permissions</string>
     <string name="cantFindFile">Can\'t find the file</string>
-    <string name="selectFirstJ">Select second revision ...</string>
-    <string name="selectRythm">Select rythm ...</string>
+    <string name="selectFirstJ">Select second revision …</string>
+    <string name="selectRythm">Select rhythm …</string>
     <string name="jMethod">J Method</string>
     <string name="rereadingMethod">Simple Rereading</string>
+    <string name="toDo">To do</string>
+    <string name="nothingToDo">Nothing to do</string>
+    <string name="done">Done</string>
 
     <string name="title_activity_subject" translatable="false">SubjectActivity</string>
     <string name="title_activity_lesson" translatable="false">LessonActivity</string>

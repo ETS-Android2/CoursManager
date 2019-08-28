@@ -23,7 +23,7 @@ public class LessonJMethodFragment extends Fragment {
     private Button bDone;
     private Calendar myCalendar;
     private String nextRead;
-    final private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    final private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public LessonJMethodFragment() {
     }

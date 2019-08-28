@@ -170,7 +170,7 @@ public class LessonActivity extends AppCompatActivity {
         final EditText editDateMax = new EditText(this);
         final Spinner selectRythm = new Spinner(this);
         final Spinner selectFirstRead = new Spinner(this);
-        final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         final DatePickerDialog.OnDateSetListener dateJ0 = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -210,8 +210,8 @@ public class LessonActivity extends AppCompatActivity {
 
         editText.setHint(R.string.defaultNameLesson);
         editTextTeach.setHint(R.string.defaultNameTeach);
-        editDateJ0.setHint("J0: 01/12/1990");
-        editDateMax.setHint("JMax: 02/12/1990");
+        editDateJ0.setHint("J0: 1990-12-01");
+        editDateMax.setHint("JMax: 1990-12-31");
 
         ArrayList<String> firstReadArray = new ArrayList<>();
         firstReadArray.add(getResources().getString(R.string.selectFirstJ));
