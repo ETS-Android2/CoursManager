@@ -52,7 +52,11 @@ public class LessonJMethodFragment extends Fragment {
             public void onClick(View view) {
                 ((LessonMainActivity) Objects.requireNonNull(getActivity())).nbReading += 1;
                 try {
-                    myCalendar.setTime(sdf.parse(nextRead));
+                    if(((LessonMainActivity) getActivity()).nbReading == 1)
+                        myCalendar.setTime(sdf.parse(((LessonMainActivity) getActivity()).currentLesson.getDateJ0()));
+                    else
+                        myCalendar.setTime(sdf.parse(nextRead));
+
                     myCalendar.add(Calendar.DAY_OF_MONTH, ((LessonMainActivity) getActivity()).currentLesson.getRhythm()*((LessonMainActivity) getActivity()).nbReading);
                     nextRead = sdf.format(myCalendar.getTime());
 

@@ -215,8 +215,11 @@ public class LessonActivity extends AppCompatActivity {
 
         ArrayList<String> firstReadArray = new ArrayList<>();
         firstReadArray.add(getResources().getString(R.string.selectFirstJ));
+        firstReadArray.add("J+1");
         firstReadArray.add("J+2");
         firstReadArray.add("J+3");
+        firstReadArray.add("J+4");
+        firstReadArray.add("J+5");
         ArrayAdapter<String> firstReadAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, firstReadArray);
         selectFirstRead.setAdapter(firstReadAdapter);
 
@@ -260,7 +263,7 @@ public class LessonActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            if (lessonManager.addLesson(new Lesson(0, editText.getText().toString(), editTextTeach.getText().toString(), editDateJ0.getText().toString(), "", false, idSubject, 10, 0, selectRythm.getSelectedItemPosition() + 2, selectFirstRead.getSelectedItemPosition() + 1, editDateMax.getText().toString(), checkMethodJ.isChecked(), sdf.format(myCalendar.getTime()))) == -1) {
+                            if (lessonManager.addLesson(new Lesson(0, editText.getText().toString(), editTextTeach.getText().toString(), editDateJ0.getText().toString(), "", false, idSubject, 10, 0, selectRythm.getSelectedItemPosition() + 2, selectFirstRead.getSelectedItemPosition(), editDateMax.getText().toString(), checkMethodJ.isChecked(), sdf.format(myCalendar.getTime()))) == -1) {
                                 Toast.makeText(getApplicationContext(), R.string.lessonAddError, Toast.LENGTH_LONG).show();
                             }else{
                                 Toast.makeText(getApplicationContext(), R.string.lessonAddGood, Toast.LENGTH_LONG).show();
