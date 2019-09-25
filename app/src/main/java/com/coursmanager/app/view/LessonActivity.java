@@ -1,5 +1,6 @@
 package com.coursmanager.app.view;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,7 +38,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class LessonActivity extends AppCompatActivity {
 
@@ -170,7 +170,7 @@ public class LessonActivity extends AppCompatActivity {
         final EditText editDateMax = new EditText(this);
         final Spinner selectRythm = new Spinner(this);
         final Spinner selectFirstRead = new Spinner(this);
-        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        @SuppressLint("SimpleDateFormat") final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         final DatePickerDialog.OnDateSetListener dateJ0 = new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -220,7 +220,7 @@ public class LessonActivity extends AppCompatActivity {
         firstReadArray.add("J+3");
         firstReadArray.add("J+4");
         firstReadArray.add("J+5");
-        ArrayAdapter<String> firstReadAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, firstReadArray);
+        ArrayAdapter<String> firstReadAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, firstReadArray);
         selectFirstRead.setAdapter(firstReadAdapter);
 
         ArrayList<String> rythmArray = new ArrayList<>();
@@ -231,7 +231,7 @@ public class LessonActivity extends AppCompatActivity {
         rythmArray.add("6-12-24-...");
         rythmArray.add("7-14-28-...");
         rythmArray.add("8-16-32-...");
-        ArrayAdapter<String> rythmAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, rythmArray);
+        ArrayAdapter<String> rythmAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, rythmArray);
         selectRythm.setAdapter(rythmAdapter);
 
         checkMethodJ.setText(R.string.jMethod);

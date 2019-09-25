@@ -1,6 +1,8 @@
 package com.coursmanager.app.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +20,11 @@ import java.util.Objects;
 
 public class LessonJMethodFragment extends Fragment {
 
-    private View rootView;
     private TextView tNextRead;
     private Button bDone;
     private Calendar myCalendar;
     private String nextRead;
+    @SuppressLint("SimpleDateFormat")
     final private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public LessonJMethodFragment() {
@@ -41,9 +43,9 @@ public class LessonJMethodFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.rootView =  inflater.inflate(R.layout.fragment_lesson_jmethod, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lesson_jmethod, container, false);
 
         this.tNextRead = rootView.findViewById(R.id.tNextRead);
         this.bDone = rootView.findViewById(R.id.bDone);
@@ -67,24 +69,38 @@ public class LessonJMethodFragment extends Fragment {
             }
         });
 
+        rootView.findViewById(R.id.bFinish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.setFinish(true);
+                updatePrint();
+            }
+        });
+
         updatePrint();
 
         return rootView;
     }
 
+    @SuppressLint("SetTextI18n")
     public void updatePrint(){
         try {
             Date nextRead = sdf.parse(this.nextRead);
             myCalendar = Calendar.getInstance();
 
-
-            if(myCalendar.getTime().before(nextRead)){
+            if(((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.isFinish()){
                 bDone.setVisibility(View.GONE);
-                tNextRead.setText("Next read : " + sdf.format(nextRead));
+                tNextRead.setText(getResources().getString(R.string.finish));
                 tNextRead.setVisibility(View.VISIBLE);
-            }else{
-                tNextRead.setVisibility(View.GONE);
-                bDone.setVisibility(View.VISIBLE);
+            }else {
+                if (myCalendar.getTime().before(nextRead)) {
+                    bDone.setVisibility(View.GONE);
+                    tNextRead.setText(getResources().getString(R.string.nextRead) + sdf.format(nextRead));
+                    tNextRead.setVisibility(View.VISIBLE);
+                } else {
+                    tNextRead.setVisibility(View.GONE);
+                    bDone.setVisibility(View.VISIBLE);
+                }
             }
         } catch (ParseException e) {
             e.printStackTrace();

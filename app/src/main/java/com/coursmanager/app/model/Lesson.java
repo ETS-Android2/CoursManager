@@ -74,7 +74,7 @@ public class Lesson {
         this.note = note;
     }
 
-    public boolean getFinish() {
+    public boolean isFinish() {
         return finish;
     }
 
@@ -94,7 +94,7 @@ public class Lesson {
         return objective;
     }
 
-    public void setObjectve(int objective) {
+    public void setObjective(int objective) {
         this.objective = objective;
     }
 

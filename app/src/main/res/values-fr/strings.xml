@@ -59,4 +59,5 @@
     <string name="nothingToDo">Rien à faire</string>
     <string name="toDo">À faire</string>
     <string name="done">Fait</string>
+    <string name="nextRead">"Prochaine lecture : "</string>
 </resources>
