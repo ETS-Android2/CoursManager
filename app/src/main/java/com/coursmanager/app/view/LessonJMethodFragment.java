@@ -45,7 +45,7 @@ public class LessonJMethodFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_lesson_jmethod, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_lesson_jmethod, container, false);
 
         this.tNextRead = rootView.findViewById(R.id.tNextRead);
         this.bDone = rootView.findViewById(R.id.bDone);
@@ -72,15 +72,10 @@ public class LessonJMethodFragment extends Fragment {
         rootView.findViewById(R.id.bFinish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< HEAD
-                rootView.findViewById(R.id.bFinish).setVisibility(View.GONE);
-                bDone.setVisibility(View.GONE);
-                tNextRead.setText(getResources().getText(R.string.lessonFinished));
-                ((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.setFinish(true);
-=======
-                ((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.setFinish(true);
-                updatePrint();
->>>>>>> 9b2d2663016fbd9c798c671e7b78774c82c5c7b2
+            rootView.findViewById(R.id.bFinish).setVisibility(View.GONE);
+            bDone.setVisibility(View.GONE);
+            tNextRead.setText(getResources().getText(R.string.lessonFinished));
+            ((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.setFinish(true);
             }
         });
 
@@ -95,15 +90,13 @@ public class LessonJMethodFragment extends Fragment {
             Date nextRead = sdf.parse(this.nextRead);
             myCalendar = Calendar.getInstance();
 
-<<<<<<< HEAD
-            if(myCalendar.getTime().before(nextRead)){
+            if(myCalendar.getTime().before(nextRead)) {
                 bDone.setVisibility(View.GONE);
                 tNextRead.setText(getResources().getText(R.string.nextRead) + sdf.format(nextRead));
-=======
-            if(((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.isFinish()){
+            }
+            if(((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.isFinish()) {
                 bDone.setVisibility(View.GONE);
                 tNextRead.setText(getResources().getString(R.string.finish));
->>>>>>> 9b2d2663016fbd9c798c671e7b78774c82c5c7b2
                 tNextRead.setVisibility(View.VISIBLE);
             }else {
                 if (myCalendar.getTime().before(nextRead)) {
