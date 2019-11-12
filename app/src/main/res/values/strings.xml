@@ -56,6 +56,8 @@
     <string name="toDo">To do</string>
     <string name="nothingToDo">Nothing to do</string>
     <string name="done">Done</string>
+    <string name="nextRead">Next read : </string>
+    <string name="lessonFinished">Lesson finished</string>
 
     <string name="title_activity_subject" translatable="false">SubjectActivity</string>
     <string name="title_activity_lesson" translatable="false">LessonActivity</string>

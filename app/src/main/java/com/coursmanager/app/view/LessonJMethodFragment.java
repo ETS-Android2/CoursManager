@@ -67,6 +67,16 @@ public class LessonJMethodFragment extends Fragment {
             }
         });
 
+        rootView.findViewById(R.id.bFinish).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                rootView.findViewById(R.id.bFinish).setVisibility(View.GONE);
+                bDone.setVisibility(View.GONE);
+                tNextRead.setText(getResources().getText(R.string.lessonFinished));
+                ((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.setFinish(true);
+            }
+        });
+
         updatePrint();
 
         return rootView;
@@ -77,10 +87,9 @@ public class LessonJMethodFragment extends Fragment {
             Date nextRead = sdf.parse(this.nextRead);
             myCalendar = Calendar.getInstance();
 
-
             if(myCalendar.getTime().before(nextRead)){
                 bDone.setVisibility(View.GONE);
-                tNextRead.setText("Next read : " + sdf.format(nextRead));
+                tNextRead.setText(getResources().getText(R.string.nextRead) + sdf.format(nextRead));
                 tNextRead.setVisibility(View.VISIBLE);
             }else{
                 tNextRead.setVisibility(View.GONE);

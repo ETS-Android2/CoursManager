@@ -258,7 +258,7 @@ public class LessonActivity extends AppCompatActivity {
                             //Try to get the first date of rereading
                             try {
                                 myCalendar.setTime(sdf.parse(editDateJ0.getText().toString()));
-                                myCalendar.add(Calendar.DAY_OF_MONTH, selectFirstRead.getSelectedItemPosition() + 1);
+                                myCalendar.add(Calendar.DAY_OF_MONTH, selectFirstRead.getSelectedItemPosition());
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }

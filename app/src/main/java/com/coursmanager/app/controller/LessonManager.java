@@ -138,7 +138,7 @@ public class LessonManager extends Manager {
         Calendar myCalendar = Calendar.getInstance();
         String today = new SimpleDateFormat("yyyy-MM-dd").format(myCalendar.getTime());
 
-        String request = "SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_NEXT_READ+" <= '"+today+"'";
+        String request = "SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_FINISH_LESSON+" = 0 AND "+KEY_J_METHOD+" = 1 AND "+KEY_NEXT_READ+" <= '"+today+"'";
         return db.rawQuery(request, null);
     }
 
