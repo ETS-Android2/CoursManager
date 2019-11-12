@@ -125,7 +125,7 @@ public class LessonMainActivity extends AppCompatActivity {
         currentLesson.setNote(note);
         if(!currentLesson.isjMethod())
             currentLesson.setFinish(nbReading == objective);
-        currentLesson.setObjectve(objective);
+        currentLesson.setObjective(objective);
         currentLesson.setNbRead(nbReading);
         currentLesson.setNextRead(nextRead);
 

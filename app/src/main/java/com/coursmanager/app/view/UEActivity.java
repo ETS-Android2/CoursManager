@@ -162,8 +162,6 @@ public class UEActivity extends AppCompatActivity {
         });
 
         // Update the progress bar which represent the nb of finished lessons on total nb of lessons
-        //getResources().getDrawable(R.drawable.progressbar_states).setBounds(0,0, 150, 50);
-        //this.progress.setProgressDrawable(getResources().getDrawable(R.drawable.progressbar_states));
         int nbTot = lessonManager.getNumberLessonsInFolder(idFolder);
         int nbFin = lessonManager.getNumberLessonsFinishedInFolder(idFolder);
         // To avoid an empty ring progress bar

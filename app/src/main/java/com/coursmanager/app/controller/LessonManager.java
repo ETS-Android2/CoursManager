@@ -57,7 +57,7 @@ public class LessonManager extends Manager {
         values.put(KEY_NOTE, aLesson.getNote());
         values.put(KEY_DATE_J0, aLesson.getDateJ0());
         values.put(KEY_IDSUBJECT_LESSON, aLesson.getIdSubject());
-        values.put(KEY_FINISH_LESSON, aLesson.getFinish());
+        values.put(KEY_FINISH_LESSON, aLesson.isFinish());
         values.put(KEY_OBJECTIVE_LESSON, aLesson.getObjective());
         values.put(KEY_NB_READ_LESSON, aLesson.getNbRead());
         values.put(KEY_RYTHM, aLesson.getRhythm());
@@ -76,7 +76,7 @@ public class LessonManager extends Manager {
         values.put(KEY_NOTE, aLesson.getNote());
         values.put(KEY_DATE_J0, aLesson.getDateJ0());
         values.put(KEY_IDSUBJECT_LESSON, aLesson.getIdSubject());
-        values.put(KEY_FINISH_LESSON, aLesson.getFinish());
+        values.put(KEY_FINISH_LESSON, aLesson.isFinish());
         values.put(KEY_OBJECTIVE_LESSON, aLesson.getObjective());
         values.put(KEY_NB_READ_LESSON, aLesson.getNbRead());
         values.put(KEY_RYTHM, aLesson.getRhythm());
@@ -107,7 +107,7 @@ public class LessonManager extends Manager {
             l.setNote(c.getString(c.getColumnIndex(KEY_NOTE)));
             l.setIdSubject(c.getInt(c.getColumnIndex(KEY_IDSUBJECT_LESSON)));
             l.setFinish(c.getInt(c.getColumnIndex(KEY_FINISH_LESSON)) > 0);
-            l.setObjectve(c.getInt(c.getColumnIndex(KEY_OBJECTIVE_LESSON)));
+            l.setObjective(c.getInt(c.getColumnIndex(KEY_OBJECTIVE_LESSON)));
             l.setNbRead(c.getInt(c.getColumnIndex(KEY_NB_READ_LESSON)));
             l.setRhythm(c.getInt(c.getColumnIndex(KEY_RYTHM)));
             l.setFirstRead(c.getInt(c.getColumnIndex(KEY_FIRST_READ)));
@@ -138,7 +138,11 @@ public class LessonManager extends Manager {
         Calendar myCalendar = Calendar.getInstance();
         String today = new SimpleDateFormat("yyyy-MM-dd").format(myCalendar.getTime());
 
+<<<<<<< HEAD
         String request = "SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_FINISH_LESSON+" = 0 AND "+KEY_J_METHOD+" = 1 AND "+KEY_NEXT_READ+" <= '"+today+"'";
+=======
+        String request = "SELECT * FROM "+TABLE_NAME_LESSON+" WHERE "+KEY_J_METHOD+" = 1 AND "+KEY_FINISH_LESSON+" = 0 AND "+KEY_NEXT_READ+" <= '"+today+"'";
+>>>>>>> 9b2d2663016fbd9c798c671e7b78774c82c5c7b2
         return db.rawQuery(request, null);
     }
 
