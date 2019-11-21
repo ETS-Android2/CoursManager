@@ -36,15 +36,15 @@ public class PlayPostCardActivity extends AppCompatActivity {
         //Move to good position of the cursor
         if(savedInstanceState == null) {
             c.moveToFirst();
-            this.recto = true;
+            recto = true;
         }else {
             c.moveToPosition(savedInstanceState.getInt("position", 0));
-            this.recto = savedInstanceState.getBoolean("recto", true);
+            recto = savedInstanceState.getBoolean("recto", true);
         }
 
         //Put the good side of the post-card
         if(recto)
-            this.tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
         else{
             tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
             tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
