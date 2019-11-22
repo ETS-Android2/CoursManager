@@ -37,14 +37,14 @@ public class LessonJMethodFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        this.myCalendar = Calendar.getInstance();
-        this.nextRead = ((LessonMainActivity) Objects.requireNonNull(getActivity())).nextRead;
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        this.myCalendar = Calendar.getInstance();
+        this.nextRead = ((LessonMainActivity) Objects.requireNonNull(getActivity())).nextRead;
+
         final View rootView = inflater.inflate(R.layout.fragment_lesson_jmethod, container, false);
 
         this.tNextRead = rootView.findViewById(R.id.tNextRead);
