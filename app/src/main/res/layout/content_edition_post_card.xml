@@ -80,4 +80,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/bTakePict"
+        android:layout_width="90dp"
+        android:layout_height="35dp"
+        android:text="Picture"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toTopOf="@id/editVerso"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

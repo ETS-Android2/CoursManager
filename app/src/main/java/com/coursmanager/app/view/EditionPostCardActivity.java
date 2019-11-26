@@ -2,6 +2,7 @@ package com.coursmanager.app.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,6 +23,8 @@ public class EditionPostCardActivity extends AppCompatActivity {
     private EditText editName;
     private EditText editRecto;
     private EditText editVerso;
+
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +62,20 @@ public class EditionPostCardActivity extends AppCompatActivity {
                 savePostCard();
             }
         });
+
+        findViewById(R.id.bTakePict).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                verifyPermissionCamera();
+            }
+        });
+    }
+
+    private boolean verifyPermissionCamera(){
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
 
     public void savePostCard(){
