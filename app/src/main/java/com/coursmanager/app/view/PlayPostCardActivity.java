@@ -2,20 +2,27 @@ package com.coursmanager.app.view;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.coursmanager.app.R;
 import com.coursmanager.app.controller.PostCardManager;
 
+import java.io.File;
+
 public class PlayPostCardActivity extends AppCompatActivity {
 
     private TextView tPostCard;
+    private ImageView imagePostCard;
+    private File image;
     private Cursor c;
     private boolean recto;
 
@@ -32,6 +39,7 @@ public class PlayPostCardActivity extends AppCompatActivity {
         postCardManager.open();
         this.c = postCardManager.getAllPostCardLesson(intent.getLongExtra("idLesson", 0));
         this.tPostCard = findViewById(R.id.tPostCard);
+        this.imagePostCard = findViewById(R.id.imagePostCard);
 
         //Move to good position of the cursor
         if(savedInstanceState == null) {
@@ -91,8 +99,15 @@ public class PlayPostCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(recto) {
-                    tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
-                    tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
+                    image = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + c.getLong(c.getColumnIndex(PostCardManager.KEY_ID_POSTCARD)) + "_verso.jpg");
+                    if(image.exists()){
+                        tPostCard.setVisibility(View.GONE);
+                        imagePostCard.setImageURI(Uri.fromFile(image));
+                        imagePostCard.setVisibility(View.VISIBLE);
+                    }else {
+                        tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
+                        tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
+                    }
                     recto = false;
                 }else{
                     tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));

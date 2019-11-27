@@ -59,9 +59,10 @@ public class FolderActivity extends AppCompatActivity {
         this.order = sharedPref.getInt("orderFolder", 1);
 
         this.DB_FILEPATH = this.getDatabasePath(MySQLite.DATABASE_NAME).toString();
-        this.NEW_DB_FILEPATH = Environment.getExternalStorageDirectory().toString() + "/CoursManager/" + MySQLite.DATABASE_NAME;
+        this.NEW_DB_FILEPATH = Environment.getExternalStorageDirectory().toString() + "/CoursManager/Save/" + MySQLite.DATABASE_NAME;
 
-        new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager").mkdirs();
+        new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/Save").mkdirs();
+        new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards").mkdirs();
 
         //Log.d("DEBUG", NEW_DB_FILEPATH);
 
