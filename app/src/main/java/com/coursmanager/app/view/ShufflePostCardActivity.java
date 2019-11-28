@@ -2,21 +2,27 @@ package com.coursmanager.app.view;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.coursmanager.app.R;
 import com.coursmanager.app.controller.PostCardManager;
 
+import java.io.File;
 import java.util.Random;
 
 public class ShufflePostCardActivity extends AppCompatActivity {
 
     private TextView tPostCard;
+    private ImageView imagePostCard;
+    private File image;
     private Cursor c;
     private boolean recto;
     private int max;
@@ -34,6 +40,7 @@ public class ShufflePostCardActivity extends AppCompatActivity {
         postCardManager.open();
         this.c = postCardManager.getAllPostCardLesson(intent.getLongExtra("idLesson", 0));
         this.tPostCard = findViewById(R.id.tPostCard);
+        this.imagePostCard = findViewById(R.id.imagePostCard);
         this.max = c.getCount();
 
         //Move to good position of the cursor
@@ -45,25 +52,27 @@ public class ShufflePostCardActivity extends AppCompatActivity {
             recto = savedInstanceState.getBoolean("recto", true);
         }
 
+        //Get the image file of verso
+        image = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + c.getLong(c.getColumnIndex(PostCardManager.KEY_ID_POSTCARD)) + "_verso.jpg");
+
         //Put the good side of the post-card
         if(recto)
-            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
-        else{
-            tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
-            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
-        }
+            setRecto();
+        else
+            setVerso();
 
+        //Suffle button
         FloatingActionButton fabShuffle = findViewById(R.id.fabNext);
         fabShuffle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 c.moveToPosition(getRandomPosition());
-                tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
-                tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+                image = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + c.getLong(c.getColumnIndex(PostCardManager.KEY_ID_POSTCARD)) + "_verso.jpg");
+                setRecto();
             }
         });
 
-        FloatingActionButton fabReplay = findViewById(R.id.fabReplay);
+        /*FloatingActionButton fabReplay = findViewById(R.id.fabReplay);
         fabReplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,19 +82,26 @@ public class ShufflePostCardActivity extends AppCompatActivity {
                     recto = true;
                 }
             }
-        });
+        });*/
 
+        /* When click on PostCard */
+        imagePostCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(recto) {
+                    setVerso();
+                }else{
+                    setRecto();
+                }
+            }
+        });
         tPostCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(recto) {
-                    tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
-                    tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
-                    recto = false;
+                    setVerso();
                 }else{
-                    tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
-                    tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
-                    recto = true;
+                    setRecto();
                 }
             }
         });
@@ -93,6 +109,32 @@ public class ShufflePostCardActivity extends AppCompatActivity {
 
     private int getRandomPosition(){
         return new Random().nextInt(max);
+    }
+
+    private void setVerso(){
+        if(image.exists()){
+            tPostCard.setVisibility(View.GONE);
+            imagePostCard.setImageURI(Uri.fromFile(image));
+            imagePostCard.setVisibility(View.VISIBLE);
+        }else {
+            tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
+            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
+        }
+        recto = false;
+    }
+
+    private void setRecto(){
+        if(image.exists()) {
+            imagePostCard.setVisibility(View.GONE);
+
+            tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
+            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+            tPostCard.setVisibility(View.VISIBLE);
+        }else{
+            tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
+            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+        }
+        recto = true;
     }
 
     @Override

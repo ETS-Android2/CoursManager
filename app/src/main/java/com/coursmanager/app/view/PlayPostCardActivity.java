@@ -50,28 +50,31 @@ public class PlayPostCardActivity extends AppCompatActivity {
             recto = savedInstanceState.getBoolean("recto", true);
         }
 
+        //Get the image file of verso
+        image = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + c.getLong(c.getColumnIndex(PostCardManager.KEY_ID_POSTCARD)) + "_verso.jpg");
+
         //Put the good side of the post-card
         if(recto)
-            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
-        else{
-            tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
-            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
-        }
+            setRecto();
+        else
+            setVerso();
 
+        //Previous button
         FloatingActionButton fabPrevious = findViewById(R.id.fabPrevious);
         fabPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!c.isFirst()) {
                     c.moveToPrevious();
-                    tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
-                    tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+                    image = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + c.getLong(c.getColumnIndex(PostCardManager.KEY_ID_POSTCARD)) + "_verso.jpg");
+                    setRecto();
                 }else
                     Toast.makeText(getApplicationContext(), R.string.first ,Toast.LENGTH_LONG).show();
             }
         });
 
-        FloatingActionButton fabReplay = findViewById(R.id.fabReplay);
+        //Replay button
+        /*FloatingActionButton fabReplay = findViewById(R.id.fabReplay);
         fabReplay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,42 +83,69 @@ public class PlayPostCardActivity extends AppCompatActivity {
                 tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
                 recto = true;
             }
-        });
+        });*/
 
+        //Next button
         FloatingActionButton fabNext = findViewById(R.id.fabNext);
         fabNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!c.isLast()) {
                     c.moveToNext();
-                    tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
-                    tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+                    image = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + c.getLong(c.getColumnIndex(PostCardManager.KEY_ID_POSTCARD)) + "_verso.jpg");
+                    setRecto();
                 }else
                     Toast.makeText(getApplicationContext(), R.string.last ,Toast.LENGTH_LONG).show();
             }
         });
 
+        /* When click on PostCard */
+        imagePostCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(recto) {
+                    setVerso();
+                }else{
+                    setRecto();
+                }
+            }
+        });
         tPostCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(recto) {
-                    image = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + c.getLong(c.getColumnIndex(PostCardManager.KEY_ID_POSTCARD)) + "_verso.jpg");
-                    if(image.exists()){
-                        tPostCard.setVisibility(View.GONE);
-                        imagePostCard.setImageURI(Uri.fromFile(image));
-                        imagePostCard.setVisibility(View.VISIBLE);
-                    }else {
-                        tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
-                        tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
-                    }
-                    recto = false;
+                    setVerso();
                 }else{
-                    tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
-                    tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
-                    recto = true;
+                    setRecto();
                 }
             }
         });
+    }
+
+    private void setVerso(){
+        if(image.exists()){
+            tPostCard.setVisibility(View.GONE);
+            imagePostCard.setImageURI(Uri.fromFile(image));
+            imagePostCard.setVisibility(View.VISIBLE);
+        }else {
+            tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_verso));
+            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_VERSO_POSTCARD)));
+        }
+        recto = false;
+    }
+
+    private void setRecto(){
+        if(image.exists()) {
+            imagePostCard.setVisibility(View.GONE);
+
+            tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
+            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+            tPostCard.setVisibility(View.VISIBLE);
+        }else{
+            tPostCard.setBackground(getResources().getDrawable(R.drawable.edit_recto));
+            tPostCard.setText(c.getString(c.getColumnIndex(PostCardManager.KEY_RECTO_POSTCARD)));
+        }
+        recto = true;
     }
 
     @Override

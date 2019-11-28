@@ -14,12 +14,12 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_gravity="bottom|start"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         app:backgroundTint="?attr/colorPrimary"
         app:srcCompat="@android:drawable/ic_media_previous"
         android:focusable="true" />
 
-    <android.support.design.widget.FloatingActionButton
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/fabReplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_margin="15dp"
         app:backgroundTint="?attr/colorPrimary"
         app:srcCompat="@drawable/replay_white"
-        android:focusable="true" />
+        android:focusable="true" />-->
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabNext"
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:layout_gravity="bottom|end"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         app:backgroundTint="?attr/colorPrimary"
         app:srcCompat="@android:drawable/ic_media_next"
         android:focusable="true" />
