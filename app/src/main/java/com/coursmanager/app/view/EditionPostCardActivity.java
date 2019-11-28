@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -38,6 +39,7 @@ public class EditionPostCardActivity extends AppCompatActivity {
     private EditText editVerso;
     private ImageView imageVerso;
 
+    private File outFile;
     private String mCameraFileName;
     private Uri image;
 
@@ -57,34 +59,49 @@ public class EditionPostCardActivity extends AppCompatActivity {
         this.editVerso = findViewById(R.id.editVerso);
         this.imageVerso = findViewById(R.id.imageVerso);
 
+        Intent intent = getIntent();
+        this.idLesson = intent.getLongExtra("idLesson", 0);
+        this.creation = intent.getBooleanExtra("creation", true);
+
         imageVerso.setVisibility(View.GONE);
 
         postCardManager = new PostCardManager(this);
         postCardManager.open();
 
-        Intent intent = getIntent();
-        this.idLesson = intent.getLongExtra("idLesson", 0);
-        this.creation = intent.getBooleanExtra("creation", true);
 
-        if(creation) {
+        if(savedInstanceState == null && creation) {
             idPostCard = postCardManager.addPostCard(new PostCard(0, "", "", "", idLesson));
             currentPostCard = postCardManager.getPostCard(idPostCard);
         }else{
-            currentPostCard = postCardManager.getPostCard(intent.getLongExtra("idPost", 0));
-            idPostCard = currentPostCard.getIdPostCard();
+            idPostCard = (savedInstanceState == null) ? intent.getLongExtra("idPostCard", 0) : savedInstanceState.getLong("idPostCard", 0);
+            currentPostCard = postCardManager.getPostCard(idPostCard);
+            outFile = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + idPostCard + "_verso.jpg");
+
+            if(outFile.exists()) {
+                editVerso.setVisibility(View.INVISIBLE);
+                imageVerso.setVisibility(View.VISIBLE);
+                imageVerso.setImageURI(Uri.fromFile(outFile));
+            }
+            else {
+                imageVerso.setVisibility(View.GONE);
+                editVerso.setVisibility(View.VISIBLE);
+                editVerso.setText(currentPostCard.getVerso());
+            }
 
             editRecto.setText(currentPostCard.getRecto());
-            editVerso.setText(currentPostCard.getVerso());
         }
 
+        //Save button
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 savePostCard();
+                finish();
             }
         });
 
+        //Picture button
         findViewById(R.id.bTakePict).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +134,7 @@ public class EditionPostCardActivity extends AppCompatActivity {
         StrictMode.setVmPolicy(builder.build());
 
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        File outFile = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + idPostCard + "_verso.jpg");
+        outFile = new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + idPostCard + "_verso.jpg");
         mCameraFileName = outFile.toString();
         takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(outFile));
         if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
@@ -148,8 +165,13 @@ public class EditionPostCardActivity extends AppCompatActivity {
         currentPostCard.setVerso(editVerso.getText().toString());
 
         postCardManager.updatePostCard(currentPostCard);
+    }
 
-        finish();
+    @Override
+    protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putLong("idPostCard", idPostCard);
+        savePostCard();
     }
 
 }

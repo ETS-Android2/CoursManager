@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 
 import com.coursmanager.app.R;
 import com.coursmanager.app.controller.PostCardManager;
+
+import java.io.File;
 
 
 public class LessonPostFragment extends Fragment {
@@ -132,7 +135,7 @@ public class LessonPostFragment extends Fragment {
                 Intent intent = new Intent(getContext(), EditionPostCardActivity.class);
                 intent.putExtra("creation", false);
                 intent.putExtra("idLesson", idLesson);
-                intent.putExtra("idPost", id);
+                intent.putExtra("idPostCard", id);
                 startActivity(intent);
             }
         });
@@ -160,6 +163,7 @@ public class LessonPostFragment extends Fragment {
                 .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         postCardManager.deletePostCard(postCardManager.getPostCard(id));
+                        new File(Environment.getExternalStorageDirectory().toString() + "/CoursManager/PostCards/" + id + "_verso.jpg").delete();
                         updatePrint();
                     }
                 })
