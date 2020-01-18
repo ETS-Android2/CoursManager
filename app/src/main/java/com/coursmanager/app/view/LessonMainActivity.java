@@ -1,14 +1,17 @@
 package com.coursmanager.app.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.coursmanager.app.R;
@@ -116,6 +119,56 @@ public class LessonMainActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_lessons, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.actionChangeMethod:
+                String confirmChange;
+                if(currentLesson.isjMethod()){
+                    confirmChange = getBaseContext().getResources().getString(R.string.jToRead);
+                }
+                else{
+                    confirmChange = getBaseContext().getResources().getString(R.string.readToJ);
+                }
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.changeMethod)
+                        .setMessage(confirmChange)
+                        .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                if(currentLesson.isjMethod()){
+                                    currentLesson.setjMethod(false);
+                                    currentLesson.setNbRead(0);
+                                    currentLesson.setObjective(10);
+                                }
+                                else{
+                                    currentLesson.setjMethod(true);
+                                }
+                                recreate();
+                            }
+                        })
+                        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                            }
+                        })
+                        .show();
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

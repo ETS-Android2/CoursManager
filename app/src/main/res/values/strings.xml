@@ -59,6 +59,9 @@
     <string name="done">Done</string>
     <string name="nextRead">Next read : </string>
     <string name="lessonFinished">Lesson finished</string>
+    <string name="changeMethod">Change method</string>
+    <string name="jToRead">J Method to Simple reading ?</string>
+    <string name="readToJ">Simple reading to J Method ?</string>
 
     <string name="title_activity_subject" translatable="false">SubjectActivity</string>
     <string name="title_activity_lesson" translatable="false">LessonActivity</string>

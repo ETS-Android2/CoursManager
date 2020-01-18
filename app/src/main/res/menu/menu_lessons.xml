@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.coursmanager.app.view.MainActivity">
+    <item
+        android:id="@+id/actionChangeMethod"
+        android:orderInCategory="1"
+        android:title="@string/changeMethod"
+        app:showAsAction="never" />
+</menu>
