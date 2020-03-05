@@ -1,9 +1,11 @@
 package com.coursmanager.app.view;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,10 +74,22 @@ public class LessonJMethodFragment extends Fragment {
         rootView.findViewById(R.id.bFinish).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            rootView.findViewById(R.id.bFinish).setVisibility(View.GONE);
-            bDone.setVisibility(View.GONE);
-            tNextRead.setText(getResources().getText(R.string.lessonFinished));
-            ((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.setFinish(true);
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.askFinished)
+                    .setMessage("")
+                    .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        rootView.findViewById(R.id.bFinish).setVisibility(View.GONE);
+                        bDone.setVisibility(View.GONE);
+                        tNextRead.setText(getResources().getText(R.string.lessonFinished));
+                        ((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.setFinish(true);
+                        }
+                    })
+                    .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                        }
+                    })
+                    .setCancelable(false).show();
             }
         });
 
@@ -92,7 +106,7 @@ public class LessonJMethodFragment extends Fragment {
 
             if(myCalendar.getTime().before(nextRead)) {
                 bDone.setVisibility(View.GONE);
-                tNextRead.setText(getResources().getText(R.string.nextRead) + sdf.format(nextRead));
+                tNextRead.setText(getResources().getText(R.string.nextRead) + " " + sdf.format(nextRead));
             }
             if(((LessonMainActivity) Objects.requireNonNull(getActivity())).currentLesson.isFinish()) {
                 bDone.setVisibility(View.GONE);
@@ -101,7 +115,7 @@ public class LessonJMethodFragment extends Fragment {
             }else {
                 if (myCalendar.getTime().before(nextRead)) {
                     bDone.setVisibility(View.GONE);
-                    tNextRead.setText(getResources().getString(R.string.nextRead) + sdf.format(nextRead));
+                    tNextRead.setText(getResources().getString(R.string.nextRead) + " " + sdf.format(nextRead));
                     tNextRead.setVisibility(View.VISIBLE);
                 } else {
                     tNextRead.setVisibility(View.GONE);

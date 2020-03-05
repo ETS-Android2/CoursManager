@@ -60,8 +60,10 @@
     <string name="toDo">À faire</string>
     <string name="done">Fait</string>
     <string name="lessonFinished">Cours fini</string>
-    <string name="nextRead">"Prochaine lecture : "</string>
+    <string name="nextRead">Prochaine lecture :</string>
     <string name="changeMethod">Changer de méthode</string>
     <string name="jToRead">Méthode des J à Lecture simple ?</string>
     <string name="readToJ">Lecture simple à Méthode des J ?</string>
+    <string name="reRead">Relu</string>
+    <string name="askFinished">Avez-vous vraiment fini ce cours ?</string>
 </resources>

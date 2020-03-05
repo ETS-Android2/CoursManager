@@ -24,9 +24,10 @@
     <string name="askDelete">Do you really want to remove it ?</string>
     <string name="askImport">Do you really want to replace your datas by imported datas ?</string>
     <string name="askExport">Do you really want to save and erase your current save ?</string>
+    <string name="askFinished">Have you really finished this lesson ?</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
-    <string name="finish">Finish</string>
+    <string name="finish">Finished</string>
     <string name="deleteAll">Delete all</string>
     <string name="confirmDeleteAll">Do you really want to delete everything ?</string>
     <string name="name">Name</string>
@@ -57,11 +58,12 @@
     <string name="toDo">To do</string>
     <string name="nothingToDo">Nothing to do</string>
     <string name="done">Done</string>
-    <string name="nextRead">Next read : </string>
+    <string name="nextRead">Next read :</string>
     <string name="lessonFinished">Lesson finished</string>
     <string name="changeMethod">Change method</string>
     <string name="jToRead">J Method to Simple reading ?</string>
     <string name="readToJ">Simple reading to J Method ?</string>
+    <string name="reRead">Re-Read</string>
 
     <string name="title_activity_subject" translatable="false">SubjectActivity</string>
     <string name="title_activity_lesson" translatable="false">LessonActivity</string>

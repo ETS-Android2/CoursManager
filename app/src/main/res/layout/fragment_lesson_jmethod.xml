@@ -13,22 +13,23 @@
 
         <Button
             android:id="@+id/bFinish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/finish"
+            android:background="#9ACD32"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/bDone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="173dp"
+            android:layout_height="174dp"
             android:background="@drawable/button_done_shape"
             android:shadowColor="#FFFFFF"
             android:shadowRadius="5"
-            android:text="@string/done"
+            android:text="@string/reRead"
             android:textColor="#000000"
             android:textSize="30sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -42,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="?attr/colorTextOnBack"
+            android:textSize="40sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
